@@ -1,25 +1,18 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useContext } from 'react';
+import { useLocation } from 'react-router-dom';
+import useWindowSize from './hooks/useWindowSize';
+import PrivateSideBar from './routes/Private/PrivateSideBar';
+import PublicRoutes from './routes/Public/PublicRoutes';
+import firebase from './services/firebase';
+import { AuthContext } from "./context/Auth";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+function Routes() {
+    // eslint-disable-next-line no-unused-vars
+    const [width, height] = useWindowSize();
+    const { currentUser } = useContext(AuthContext);
+
+    console.log('Firebase Auth', firebase);
+    return currentUser ? <PrivateSideBar /> : <PublicRoutes />;
 }
 
-export default App;
+export default (Routes);
