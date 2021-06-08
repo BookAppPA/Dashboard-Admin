@@ -9,6 +9,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { Column } from 'simple-flexbox';
 import { useHistory } from 'react-router-dom';
+import { Box } from '@material-ui/core';
+import Book from'../../../assets/png/book.png';
 
 const useStyles = makeStyles((theme) => ({
   containers: {
@@ -28,6 +30,12 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  logo: {
+    justifyContent:'center',
+    alignItems:'center',
+    width: 250,
+    height: 250
+  } 
 }));
 
 export default function ForgotPassword() {
@@ -45,6 +53,13 @@ export default function ForgotPassword() {
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <div className={classes.paper}>
+        <Box className={classes.logo}>
+            <img
+                src={Book}
+                alt='book'
+                className={classes.logo}
+            />
+          </Box>
           <Typography component="h1" variant="h5" color="#373a47">
             BookApp - Mot de passe oublié
           </Typography>

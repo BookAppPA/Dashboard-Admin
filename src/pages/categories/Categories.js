@@ -31,8 +31,7 @@ const useStyles = createUseStyles((theme) => ({
   }
 }));
 
-
-const Users = ({ ...rest }) => {
+const Categories = ({ ...rest }) => {
   const [selectedUsersId, setSelectedUsersId] = useState([]);
   const theme = useTheme();
   const classes = useStyles({ theme });
@@ -50,16 +49,10 @@ const Users = ({ ...rest }) => {
             <TableHead className={classes.tableTitle}>
               <TableRow>
                 <TableCell>
-                 Type d'utilisateur
+                 Catégorie
                 </TableCell>
                 <TableCell>
-                  Nom/Prénom
-                </TableCell>
-                <TableCell>
-                  Mail
-                </TableCell>
-                <TableCell>
-                  Téléphone
+                  Nombres de livres
                 </TableCell>
                 <TableCell>
                 </TableCell>
@@ -80,7 +73,7 @@ const Users = ({ ...rest }) => {
                       }}
                     >
                       <Typography
-                        color={'#FFF'}
+                        color="textPrimary"
                         variant="body1"
                       >
                         {user.name}
@@ -88,16 +81,10 @@ const Users = ({ ...rest }) => {
                     </Box>
                   </TableCell>
                   <TableCell>
-                    {user.email}
-                  </TableCell>
-                  <TableCell>
-                    {`${user.address.city}, ${user.address.state}, ${user.address.country}`}
-                  </TableCell>
-                  <TableCell>
                     {user.phone}
                   </TableCell>
                   <TableCell>
-                    <ActionsUsers user={true}/>
+                    <ActionsUsers />
                   </TableCell>
                 </TableRow>
               ))}
@@ -118,8 +105,4 @@ const Users = ({ ...rest }) => {
   );
 };
 
-Users.propTypes = {
-  users: PropTypes.array.isRequired
-};
-
-export default Users;
+export default Categories;

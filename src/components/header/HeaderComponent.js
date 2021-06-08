@@ -8,7 +8,6 @@ import ROUTE from '../../routes/RoutesNames';
 import DropdownComponent from '../dropdown/DropdownComponent';
 import adminLogo from'../../assets/png/admin.png';
 import firebaseConfig from "../../services/firebase";
-import { AuthContext } from '../../context/Auth';
 
 const useStyles = createUseStyles((theme) => ({
     avatar: {
@@ -75,10 +74,10 @@ function HeaderComponent() {
             title = 'Accueil';
             break;
         case currentItem === ROUTE.USERS:
-            title = 'Auteurs';
+            title = 'Utilisateurs';
             break;
-        case currentItem === ROUTE.AUTHORS:
-            title = 'Auteurs';
+        case currentItem === ROUTE.CATEGORIES:
+            title = 'Catégories';
             break;
         case currentItem === ROUTE.BOOKS:
             title = 'Livres';

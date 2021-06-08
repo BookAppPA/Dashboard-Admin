@@ -1,0 +1,72 @@
+import { v4 as uuid } from 'uuid';
+
+export default [
+    {
+        id: uuid(),
+        title: 'Harry Potter',
+        description: 'Harry potter le sorcier',
+        publisher: 'Toei',
+        publishedDate: '2010',
+        coverImage: '',
+        language: 'français',
+        previewLink: '',
+        buyLink: '',
+        authors: 'JK Rowling',
+        categories: [
+            {value: 'sorcier', label:'Sorcier'},
+            {value: 'thriller', label:'Thriller'},
+        ],
+        pageCount: 300,
+    },
+    {
+        id: uuid(),
+        title: 'Harry Potter 2',
+        description: 'Harry potter le sorcier',
+        publisher: 'Toei',
+        publishedDate: '2010',
+        coverImage: '',
+        language: 'français',
+        previewLink: '',
+        buyLink: '',
+        authors: 'JK Rowling',
+        categories: [
+            {value: 'sorcier', label:'Sorcier'},
+            {value: 'thriller', label:'Thriller'},
+        ],
+        pageCount: 300,
+    },
+    {
+        id: uuid(),
+        title: 'Harry Potter 3',
+        description: 'Harry potter le sorcier',
+        publisher: 'Toei',
+        publishedDate: '2010',
+        coverImage: '',
+        language: 'français',
+        previewLink: '',
+        buyLink: '',
+        authors: 'JK Rowling',
+        categories: [
+            {value: 'sorcier', label:'Sorcier'},
+            {value: 'thriller', label:'Thriller'},
+        ],
+        pageCount: 300,
+    },
+    {
+        id: uuid(),
+        title: 'Harry Potter 4',
+        description: 'Harry potter le sorcier',
+        publisher: 'Toei',
+        publishedDate: '2010',
+        coverImage: '',
+        language: 'français',
+        previewLink: '',
+        buyLink: '',
+        authors: 'JK Rowling',
+        categories: [
+            {value: 'sorcier', label:'Sorcier'},
+            {value: 'thriller', label:'Thriller'},
+        ],
+        pageCount: 300,
+    }
+]

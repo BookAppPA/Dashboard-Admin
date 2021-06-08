@@ -1,9 +1,7 @@
-import React, { useState, useRef, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -13,8 +11,9 @@ import { Column } from 'simple-flexbox';
 import ROUTE from '../../../routes/RoutesNames';
 import { useHistory } from 'react-router-dom';
 import { AuthContext } from "../../../context/Auth";
-import firebaseConfig from "../../../services/firebase";
-
+import { signIn } from 'services/auth/firebaseAuth';
+import Book from'../../../assets/png/book.png';
+import { Box } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   containers: {
@@ -33,12 +32,17 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(4, 0, 2),
   },
+  logo: {
+    justifyContent:'center',
+    alignItems:'center',
+    width: 250,
+    height: 250
+  } 
 }));
 
 export default function SignIn() {
   const [email, setEmail] = useState('');
   const [pwd, setPwd] = useState('');
-  const [error, setError] = useState('');
   const { currentUser } = useContext(AuthContext);
 
   const classes = useStyles();
@@ -50,16 +54,9 @@ export default function SignIn() {
 }
 
 function logIn() {
-    try {
-      firebaseConfig.auth().signInWithEmailAndPassword(email, pwd);
-      console.log(firebaseConfig)
-      console.log('Current', currentUser)
-      console.log('test login');
-      push(ROUTE.DASHBOARD_OVERVIEW);
-    } catch (error) {
-      alert(error);
-    }
-  push(ROUTE.DASHBOARD_OVERVIEW);
+  signIn(email, pwd, push, ROUTE.DASHBOARD_OVERVIEW);
+  alert(`CURRENTUSER ${currentUser}`);
+  alert(email);  
 }
 
   return (
@@ -67,6 +64,13 @@ function logIn() {
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <div className={classes.paper}>
+          <Box className={classes.logo}>
+            <img
+                src={Book}
+                alt='book'
+                className={classes.logo}
+            />
+          </Box>
           <Typography component="h1" variant="h5" color="#373a47">
             BookApp
           </Typography>
@@ -96,10 +100,6 @@ function logIn() {
               type="password"
               id="password"
               autoComplete="current-password"
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="#373a47" />}
-              label="Se souvenir"
             />
             <Button
               type="submit"

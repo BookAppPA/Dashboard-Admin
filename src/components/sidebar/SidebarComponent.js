@@ -10,14 +10,15 @@ import {
 import LogoComponent from './LogoComponent';
 import Menu from './MenuComponent';
 import MenuItem from './MenuItemComponent';
+import { logout } from 'services/auth/firebaseAuth';
 
 
 function SidebarComponent() {
     const { push } = useHistory();
     const isMobile = window.innerWidth <= 1080;
 
-    async function logout() {
-        push(ROUTE.LOGIN);
+    async function disconnect() {
+        logout(push, ROUTE.LOGIN);
     }
 
     function onClick(routes) {
@@ -42,10 +43,10 @@ function SidebarComponent() {
                 onClick={() => onClick(ROUTE.USERS)}
             />
             <MenuItem
-                id={ROUTE.AUTHORS}
-                title='Auteurs'
+                id={ROUTE.CATEGORIES}
+                title='Catégories'
                 icon={IconAgents}
-                onClick={() => onClick(ROUTE.AUTHORS)}
+                onClick={() => onClick(ROUTE.CATEGORIES)}
             />
             <MenuItem
                 id={ROUTE.BOOKS}
@@ -53,7 +54,7 @@ function SidebarComponent() {
                 icon={IconContacts}
                 onClick={() => onClick(ROUTE.BOOKS)}
             />
-            <MenuItem id='logout' title='Se déconnecter' icon={IconLogout} onClick={logout} />
+            <MenuItem id='logout' title='Se déconnecter' icon={IconLogout} onClick={disconnect} />
         </Menu>
     );
 }

@@ -1,5 +1,4 @@
-import { useState, } from 'react';
-import PropTypes from 'prop-types';
+import { useState } from 'react';
 import { createUseStyles, useTheme } from 'react-jss';
 import {
   Box,
@@ -12,8 +11,10 @@ import {
   TableRow,
   Typography
 } from '@material-ui/core';
-import users from '../../mocks/users';
+import books from '../../mocks/books';
+import { useHistory } from 'react-router-dom';
 import ActionsUsers from '../../components/actionsUsers';
+import ROUTE from '../../routes/RoutesNames';
 
 const useStyles = createUseStyles((theme) => ({
   tableContainer: {
@@ -31,16 +32,23 @@ const useStyles = createUseStyles((theme) => ({
   }
 }));
 
-
-const Users = ({ ...rest }) => {
-  const [selectedUsersId, setSelectedUsersId] = useState([]);
+const Books = ({ ...rest }) => {
+  const [selectedBookId, setSelectedBookId] = useState([]);
   const theme = useTheme();
   const classes = useStyles({ theme });
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
+  const { push } = useHistory();
 
   const handlePageChange = (event, newPage) => {
     setPage(newPage);
+  };
+
+  function editBooks(book){
+    push({
+      pathname: ROUTE.EDIT_BOOK,
+      book: book
+    });
   };
 
   return (
@@ -50,27 +58,21 @@ const Users = ({ ...rest }) => {
             <TableHead className={classes.tableTitle}>
               <TableRow>
                 <TableCell>
-                 Type d'utilisateur
+                 Titre
                 </TableCell>
                 <TableCell>
-                  Nom/Prénom
-                </TableCell>
-                <TableCell>
-                  Mail
-                </TableCell>
-                <TableCell>
-                  Téléphone
+                  Auteur
                 </TableCell>
                 <TableCell>
                 </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {users.slice(0, limit).map((user) => (
+              {books.slice(0, limit).map((book) => (
                 <TableRow
                   hover
-                  key={user.id}
-                  selected={selectedUsersId.indexOf(user.id) !== -1}
+                  key={book.id}
+                  selected={selectedBookId.indexOf(book.id) !== -1}
                 >
                   <TableCell>
                     <Box
@@ -80,24 +82,18 @@ const Users = ({ ...rest }) => {
                       }}
                     >
                       <Typography
-                        color={'#FFF'}
+                        color="textPrimary"
                         variant="body1"
                       >
-                        {user.name}
+                        {book.title}
                       </Typography>
                     </Box>
                   </TableCell>
                   <TableCell>
-                    {user.email}
+                    {book.authors}
                   </TableCell>
                   <TableCell>
-                    {`${user.address.city}, ${user.address.state}, ${user.address.country}`}
-                  </TableCell>
-                  <TableCell>
-                    {user.phone}
-                  </TableCell>
-                  <TableCell>
-                    <ActionsUsers user={true}/>
+                    <ActionsUsers onClickEdit={() => editBooks(book)} />
                   </TableCell>
                 </TableRow>
               ))}
@@ -107,7 +103,7 @@ const Users = ({ ...rest }) => {
       <TablePagination
         className={classes.tableContainer}
         component="div"
-        count={users.length}
+        count={books.length}
         onPageChange={handlePageChange}
         labelDisplayedRows={()=>null}
         page={page}
@@ -118,8 +114,4 @@ const Users = ({ ...rest }) => {
   );
 };
 
-Users.propTypes = {
-  users: PropTypes.array.isRequired
-};
-
-export default Users;
+export default Books;

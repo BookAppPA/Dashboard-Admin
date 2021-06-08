@@ -6,7 +6,6 @@ const useStyles = createUseStyles((theme) => ({
     container: {
         backgroundColor: theme.color.veryDarkGrayishBlue,
         border: `1px solid ${theme.color.lightGrayishBlue2}`,
-        borderRadius: 4,
         cursor: 'pointer',
         maxWidth: 350,
         padding: '16px 32px 16px 32px',

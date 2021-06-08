@@ -8,6 +8,8 @@ export default {
     DASHBOARD_OVERVIEW: "/",
     USERS: "/users",
     BOOKS: "/books",
-    AUTHORS:"/authors",
-    // auth
+    CATEGORIES:"/categories",
+    SETTINGS: "/settings",
+    EDIT_BOOK: "/edit_books",
+    EDIT_CATEGORY: "/edit_category",
 };
