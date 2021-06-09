@@ -10,7 +10,7 @@ import {
 import LogoComponent from './LogoComponent';
 import Menu from './MenuComponent';
 import MenuItem from './MenuItemComponent';
-import { logout } from 'services/auth/firebaseAuth';
+import { logout } from '../../services/firebase';
 
 
 function SidebarComponent() {

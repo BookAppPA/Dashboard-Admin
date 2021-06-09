@@ -1,4 +1,4 @@
-import { useState, } from 'react';
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { createUseStyles, useTheme } from 'react-jss';
 import {
@@ -13,21 +13,21 @@ import {
   Typography
 } from '@material-ui/core';
 import users from '../../mocks/users';
+import { dbUsers } from '../../services/firebase';
 import ActionsUsers from '../../components/actionsUsers';
 
 const useStyles = createUseStyles((theme) => ({
   tableContainer: {
-      minWidth: 1050,
-      backgroundColor: theme.color.grayishBlue3,
+    backgroundColor: theme.color.grayishBlue3,
   },
-  tableTitle: {
-    fontSize: 30,
-    color: '#FFF',
-    fontWeight: 'bold'
+  userImage: {
+    width:80,
+    height: 80,
   },
-  tableText: {
-    fontSize: 16,
-    color: '#FFF',
+  body: {
+    display:'flex',
+    justifyContent:'center',
+    alignItems: 'center',
   }
 }));
 
@@ -38,28 +38,44 @@ const Users = ({ ...rest }) => {
   const classes = useStyles({ theme });
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
+  const [users,setUsers]=useState([])
 
   const handlePageChange = (event, newPage) => {
     setPage(newPage);
   };
 
+  const fetchUsers = async () => {
+    const response = dbUsers.collection('users').get()
+    .then(users => {
+      const data = users.docs.map(doc => doc.data());
+      setUsers(data); // array of cities objects
+    });
+  }
+
+  useEffect(() => {
+    fetchUsers();
+  }, [])
+
   return (
     <Card {...rest}>
         <Box className={classes.tableContainer} sx={{ minWidth: 1050 }}>
           <Table>
-            <TableHead className={classes.tableTitle}>
+            <TableHead>
               <TableRow>
                 <TableCell>
-                 Type d'utilisateur
+                 Photo de profil
                 </TableCell>
                 <TableCell>
-                  Nom/Prénom
+                  Pseudo
                 </TableCell>
                 <TableCell>
                   Mail
                 </TableCell>
                 <TableCell>
-                  Téléphone
+                   Bio
+                </TableCell>
+                <TableCell>
+                  Nombre d'avis
                 </TableCell>
                 <TableCell>
                 </TableCell>
@@ -69,8 +85,8 @@ const Users = ({ ...rest }) => {
               {users.slice(0, limit).map((user) => (
                 <TableRow
                   hover
-                  key={user.id}
-                  selected={selectedUsersId.indexOf(user.id) !== -1}
+                  key={user.uid}
+                  selected={selectedUsersId.indexOf(user.uid) !== -1}
                 >
                   <TableCell>
                     <Box
@@ -79,22 +95,24 @@ const Users = ({ ...rest }) => {
                         display: 'flex',
                       }}
                     >
-                      <Typography
-                        color={'#FFF'}
-                        variant="body1"
-                      >
-                        {user.name}
-                      </Typography>
+                      <img 
+                        src={user.picture}
+                        alt='avatar'
+                        className={classes.userImage}
+                      />
                     </Box>
+                  </TableCell>
+                  <TableCell>
+                    {user.pseudo}
                   </TableCell>
                   <TableCell>
                     {user.email}
                   </TableCell>
                   <TableCell>
-                    {`${user.address.city}, ${user.address.state}, ${user.address.country}`}
+                    {user.bio}
                   </TableCell>
                   <TableCell>
-                    {user.phone}
+                    {user.nbRatings}
                   </TableCell>
                   <TableCell>
                     <ActionsUsers user={true}/>

@@ -11,7 +11,7 @@ import { Column } from 'simple-flexbox';
 import ROUTE from '../../../routes/RoutesNames';
 import { useHistory } from 'react-router-dom';
 import { AuthContext } from "../../../context/Auth";
-import { signIn } from 'services/auth/firebaseAuth';
+import { signIn } from '../../../services/firebase';
 import Book from'../../../assets/png/book.png';
 import { Box } from '@material-ui/core';
 

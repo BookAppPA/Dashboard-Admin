@@ -7,7 +7,7 @@ import { SidebarContext } from '../../hooks/useSidebar';
 import ROUTE from '../../routes/RoutesNames';
 import DropdownComponent from '../dropdown/DropdownComponent';
 import adminLogo from'../../assets/png/admin.png';
-import firebaseConfig from "../../services/firebase";
+import firebaseConfig from "../../services/firebaseConfig";
 
 const useStyles = createUseStyles((theme) => ({
     avatar: {
