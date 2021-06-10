@@ -11,6 +11,8 @@ import { Column } from 'simple-flexbox';
 import { useHistory } from 'react-router-dom';
 import { Box } from '@material-ui/core';
 import Book from'../../../assets/png/book.png';
+import { forgotPassword } from '../../../services/firebase';
+import { useState } from 'react';
 
 const useStyles = makeStyles((theme) => ({
   containers: {
@@ -42,11 +44,16 @@ export default function ForgotPassword() {
 
   const classes = useStyles();
   const history = useHistory();
+  const [email, setEmail] = useState('');
 
 
   function goBack() {
     history.goBack();
-  }
+  };
+
+  function sendNewPwd() {
+    forgotPassword(email);
+  };
 
   return (
     <Column className={classes.containers}>
@@ -63,8 +70,10 @@ export default function ForgotPassword() {
           <Typography component="h1" variant="h5" color="#373a47">
             BookApp - Mot de passe oublié
           </Typography>
-          <form className={classes.form}>
+          <form className={classes.form} onSubmit={()=>sendNewPwd}>
             <TextField
+              value={email}
+              onChange={(email) => setEmail(email.target.value)}
               variant="outlined"
               margin="normal"
               required
