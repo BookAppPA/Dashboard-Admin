@@ -55,8 +55,6 @@ export default function SignIn() {
 
 function logIn() {
   signIn(email, pwd, push, ROUTE.DASHBOARD_OVERVIEW);
-  alert(`CURRENTUSER ${currentUser}`);
-  alert(email);  
 }
 
   return (
