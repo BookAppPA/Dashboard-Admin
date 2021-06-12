@@ -12,7 +12,7 @@ import {
   TableRow,
   Typography
 } from '@material-ui/core';
-import users from '../../mocks/users';
+import users from '../../services/mocks/users';
 import ActionsUsers from '../../components/actionsUsers';
 
 const useStyles = createUseStyles((theme) => ({
@@ -31,16 +31,12 @@ const useStyles = createUseStyles((theme) => ({
   }
 }));
 
-const Categories = ({ ...rest }) => {
+const Bookstores = ({ ...rest }) => {
   const [selectedUsersId, setSelectedUsersId] = useState([]);
   const theme = useTheme();
   const classes = useStyles({ theme });
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
-
-  const handlePageChange = (event, newPage) => {
-    setPage(newPage);
-  };
 
   return (
     <Card {...rest}>
@@ -95,7 +91,6 @@ const Categories = ({ ...rest }) => {
         className={classes.tableContainer}
         component="div"
         count={users.length}
-        onPageChange={handlePageChange}
         labelDisplayedRows={()=>null}
         page={page}
         labelRowsPerPage={''}
@@ -105,4 +100,4 @@ const Categories = ({ ...rest }) => {
   );
 };
 
-export default Categories;
+export default Bookstores;

@@ -1,55 +1,118 @@
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { createUseStyles, useTheme } from 'react-jss';
-import {
-  Box,
-  Card,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TablePagination,
-  TableRow,
-  Typography
-} from '@material-ui/core';
-import users from '../../mocks/users';
+import { Box,Card } from '@material-ui/core';
 import { dbUsers } from '../../services/firebase';
-import ActionsUsers from '../../components/actionsUsers';
+import MUIDataTable from "mui-datatables";
+import { useHistory } from 'react-router-dom';
+import ROUTE from '../../routes/RoutesNames';
+import Chip from '@material-ui/core/Chip';
 
 const useStyles = createUseStyles((theme) => ({
   tableContainer: {
-    backgroundColor: theme.color.grayishBlue3,
+    backgroundColor: theme.color.light,
+    padding:20,
   },
   userImage: {
-    width:80,
+    width: 80,
     height: 80,
   },
   body: {
-    display:'flex',
-    justifyContent:'center',
+    display: 'flex',
+    justifyContent: 'center',
     alignItems: 'center',
   }
 }));
 
+const columns = [
+  {
+    name: "picture",
+    label: "Photo de profil",
+    options: {
+      filter: false,
+      sort: false,
+      customBodyRender: (value) => (
+        <img
+          src={value}
+          alt='avatar'
+          style={{ width: 80, height: 80 }} />
+      )
+    },
+  },
+  {
+    name: "pseudo",
+    label: "Pseudo",
+    options: {
+      filter: true,
+      sort: true,
+    }
+  },
+  {
+    name: "email",
+    label: "Mail",
+    options: {
+      filter: true,
+      sort: true,
+    }
+  },
+  {
+    name: "bio",
+    label: "Bio",
+    options: {
+      filter: false,
+      sort: false,
+    }
+  },
+  {
+    name: 'isBlocked',
+    label: "Statut",
+    options: {
+      filter: true,
+      sort: true,
+      customBodyRender: (value) => (
+        <Chip 
+          label={value ? "Bloqué" : "Autorisé"} 
+          color={value ? "secondary" : "primary"} 
+        />
+      )
+    }
+  },
+  {
+    name: "uid",
+    options: {
+      display: false
+    }
+  }
+];
 
 const Users = ({ ...rest }) => {
-  const [selectedUsersId, setSelectedUsersId] = useState([]);
   const theme = useTheme();
   const classes = useStyles({ theme });
-  const [limit, setLimit] = useState(10);
-  const [page, setPage] = useState(0);
-  const [users,setUsers]=useState([])
+  const [users, setUsers] = useState([]);
+  const { push } = useHistory();
 
-  const handlePageChange = (event, newPage) => {
-    setPage(newPage);
+  const redirectTo = ( rowData ) => {
+    push({
+      pathname: ROUTE.USERS_DETAILS,
+      user: rowData
+    });
+  }
+
+  const options = {
+    filterType: 'checkbox',
+    selectableRowsHeader: false,
+    selectableRowsHideCheckboxes: false,
+    selectableRowsOnClick: false,
+    onRowClick: redirectTo,
   };
 
   const fetchUsers = async () => {
     const response = dbUsers.collection('users').get()
-    .then(users => {
-      const data = users.docs.map(doc => doc.data());
-      setUsers(data); // array of cities objects
-    });
+      .then(users => {
+        const data = users.docs.map(doc => doc.data());
+        setUsers(data); // array of cities objects
+      });
+    return response;
   }
 
   useEffect(() => {
@@ -57,81 +120,14 @@ const Users = ({ ...rest }) => {
   }, [])
 
   return (
-    <Card {...rest}>
-        <Box className={classes.tableContainer} sx={{ minWidth: 1050 }}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>
-                 Photo de profil
-                </TableCell>
-                <TableCell>
-                  Pseudo
-                </TableCell>
-                <TableCell>
-                  Mail
-                </TableCell>
-                <TableCell>
-                   Bio
-                </TableCell>
-                <TableCell>
-                  Nombre d'avis
-                </TableCell>
-                <TableCell>
-                </TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {users.slice(0, limit).map((user) => (
-                <TableRow
-                  hover
-                  key={user.uid}
-                  selected={selectedUsersId.indexOf(user.uid) !== -1}
-                >
-                  <TableCell>
-                    <Box
-                      sx={{
-                        alignItems: 'center',
-                        display: 'flex',
-                      }}
-                    >
-                      <img 
-                        src={user.picture}
-                        alt='avatar'
-                        className={classes.userImage}
-                      />
-                    </Box>
-                  </TableCell>
-                  <TableCell>
-                    {user.pseudo}
-                  </TableCell>
-                  <TableCell>
-                    {user.email}
-                  </TableCell>
-                  <TableCell>
-                    {user.bio}
-                  </TableCell>
-                  <TableCell>
-                    {user.nbRatings}
-                  </TableCell>
-                  <TableCell>
-                    <ActionsUsers user={true}/>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </Box>
-      <TablePagination
-        className={classes.tableContainer}
-        component="div"
-        count={users.length}
-        onPageChange={handlePageChange}
-        labelDisplayedRows={()=>null}
-        page={page}
-        labelRowsPerPage={''}
-        rowsPerPageOptions={[]}
-      />
+    <Card>
+      <Box className={classes.tableContainer} sx={{ minWidth: 1050 }}>
+        <MUIDataTable
+          data={users}
+          columns={columns}
+          options={options}
+        />
+      </Box>
     </Card>
   );
 };

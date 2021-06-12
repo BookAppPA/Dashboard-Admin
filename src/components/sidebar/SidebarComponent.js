@@ -7,7 +7,10 @@ import {
     IconLogout,
     IconOverview,
     IconSubscription} from '../../assets/iconsSVG';
+import HomeIcon from '@material-ui/icons/Home';
+import UserIcon from '@material-ui/icons/People';
 import LogoComponent from './LogoComponent';
+import LocalLibraryIcon from '@material-ui/icons/LocalLibrary';
 import Menu from './MenuComponent';
 import MenuItem from './MenuItemComponent';
 import { logout } from '../../services/firebase';
@@ -33,20 +36,20 @@ function SidebarComponent() {
             <MenuItem
                 id={ROUTE.DASHBOARD_OVERVIEW}
                 title='Accueil'
-                icon={IconSubscription}
+                icon={HomeIcon}
                 onClick={() => onClick(ROUTE.DASHBOARD_OVERVIEW)}
             />
             <MenuItem
                 id={ROUTE.USERS}
                 title='Utilisateurs'
-                icon={IconOverview}
+                icon={UserIcon}
                 onClick={() => onClick(ROUTE.USERS)}
             />
             <MenuItem
-                id={ROUTE.CATEGORIES}
-                title='Catégories'
-                icon={IconAgents}
-                onClick={() => onClick(ROUTE.CATEGORIES)}
+                id={ROUTE.BOOKSTORES}
+                title='Libraires'
+                icon={LocalLibraryIcon}
+                onClick={() => onClick(ROUTE.BOOKSTORES)}
             />
             <MenuItem
                 id={ROUTE.BOOKS}

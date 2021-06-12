@@ -90,8 +90,6 @@ export default function EditBooks() {
         }
     }, [location])
 
-    console.log('CATE AFTER', categories);
-
     return (
         <Column>
             <span className={classes.title}>Edit Harry Potter</span>

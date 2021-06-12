@@ -5,7 +5,8 @@ import LoadingComponent from '../../components/loading/LoadingComponent';
 
 const DashboardOverview = lazy(() => import('../../pages/dashboard/Dashboard'));
 const Users = lazy(() => import('../../pages/users/Users'));
-const Categories = lazy(() => import('../../pages/categories/Categories'));
+const UserDetails = lazy(() => import('../../pages/userDetails/'));
+const Bookstores = lazy(() => import('../../pages/bookStores/Bookstores'));
 const Books = lazy(() => import('../../pages/books/Books'));
 const Settings = lazy(() => import('../../pages/settings/Settings'));
 const EditBook = lazy(() => import('../../pages/books/edit_book'));
@@ -17,7 +18,8 @@ function PrivateRoutes() {
             <Switch>
                 <Route exact path={ROUTE.DASHBOARD_OVERVIEW} component={DashboardOverview} />
                 <Route exact path={ROUTE.USERS} component={Users} />
-                <Route exact path={ROUTE.CATEGORIES} component={Categories} />
+                <Route exact path={ROUTE.USERS_DETAILS} component={UserDetails} />
+                <Route exact path={ROUTE.BOOKSTORES} component={Bookstores} />
                 <Route exact path={ROUTE.BOOKS} component={Books} />
                 <Route exact path={ROUTE.SETTINGS} component={Settings} />
                 <Route exact path={ROUTE.EDIT_BOOK} component={EditBook} />

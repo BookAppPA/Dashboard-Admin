@@ -76,7 +76,7 @@ function HeaderComponent() {
         case currentItem === ROUTE.USERS:
             title = 'Utilisateurs';
             break;
-        case currentItem === ROUTE.CATEGORIES:
+        case currentItem === ROUTE.BOOKSTORES:
             title = 'Catégories';
             break;
         case currentItem === ROUTE.BOOKS:
