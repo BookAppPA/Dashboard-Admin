@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { createUseStyles, useTheme } from 'react-jss';
-import { Box,Card, Typography } from '@material-ui/core';
+import { Box,Card } from '@material-ui/core';
 import { dbUsers } from '../../services/firebase';
 import MUIDataTable from "mui-datatables";
-import { useHistory, Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import ROUTE from '../../routes/RoutesNames';
 import Chip from '@material-ui/core/Chip';
 
@@ -14,8 +14,8 @@ const useStyles = createUseStyles((theme) => ({
     padding:20,
   },
   userImage: {
-    width: 80,
-    height: 80,
+    width: 60,
+    height: 120,
   },
   body: {
     display: 'flex',
@@ -26,7 +26,7 @@ const useStyles = createUseStyles((theme) => ({
 
 const columns = [
   {
-    name: "picture",
+    name: "book_pic",
     label: "Photo de profil",
     options: {
       filter: false,
@@ -35,12 +35,12 @@ const columns = [
         <img
           src={value}
           alt='avatar'
-          style={{ width: 80, height: 80 }} />
+          style={{ width: 80, height: 120 }} />
       )
     },
   },
   {
-    name: "pseudo",
+    name: "book_title",
     label: "Pseudo",
     options: {
       filter: true,
@@ -61,14 +61,6 @@ const columns = [
     options: {
       filter: false,
       sort: false,
-    }
-  },
-  {
-    name: "nbRatings",
-    label: "Nombre d'avis",
-    options: {
-      filter: true,
-      sort: true,
     }
   },
   {
@@ -93,17 +85,16 @@ const columns = [
   }
 ];
 
-const Users = ({ ...rest }) => {
+const Comments = ({ ...rest }) => {
   const theme = useTheme();
   const classes = useStyles({ theme });
   const [users, setUsers] = useState([]);
   const { push } = useHistory();
 
-  const redirectTo = ( data ) => {
-    console.log(data);
+  const redirectTo = ( rowData ) => {
     push({
       pathname: ROUTE.USERS_DETAILS,
-      user: data
+      user: rowData
     });
   }
 
@@ -115,17 +106,29 @@ const Users = ({ ...rest }) => {
     onRowClick: redirectTo,
   };
 
-  const fetchUsers = async () => {
-    const response = dbUsers.collection('users').get()
-      .then(users => {
-        const data = users.docs.map(doc => doc.data());
-        setUsers(data); // array of cities objects
+  const fetchBooks = async () => {
+    var array = [];
+    const response = dbUsers.collection('ratings').get()
+      .then(ratings => {
+        const data = ratings.docs.map( (doc) => { 
+          dbUsers.collection('ratings').doc(doc.data().id).collection('comments').get()
+          .then(comments => {
+            const data = comments.docs.map(doc => 
+              array.push(doc.data())
+            );
+            console.log("DATA2", array);
+            setUsers(array); // array of cities objects
+          });
+
+        });
+        console.log('DATA', data);
       });
+      
     return response;
   }
 
   useEffect(() => {
-    fetchUsers();
+    fetchBooks();
   }, [])
 
   return (
@@ -141,8 +144,4 @@ const Users = ({ ...rest }) => {
   );
 };
 
-Users.propTypes = {
-  users: PropTypes.array.isRequired
-};
-
-export default Users;
+export default Comments;

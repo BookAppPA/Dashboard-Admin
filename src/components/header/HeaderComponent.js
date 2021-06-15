@@ -79,10 +79,10 @@ function HeaderComponent() {
         case currentItem === ROUTE.BOOKSTORES:
             title = 'Catégories';
             break;
-        case currentItem === ROUTE.BOOKS:
-            title = 'Livres';
+        case currentItem === ROUTE.COMMENTS:
+            title = 'Commentaires';
             break;
-        case currentItem === ROUTE.settings:
+        case currentItem === ROUTE.SETTINGS:
             title = 'Paramètres';
             break;
         default:

@@ -1,16 +1,12 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import ROUTE from '../../routes/RoutesNames';
-import {
-    IconAgents,
-    IconContacts,
-    IconLogout,
-    IconOverview,
-    IconSubscription} from '../../assets/iconsSVG';
 import HomeIcon from '@material-ui/icons/Home';
 import UserIcon from '@material-ui/icons/People';
 import LogoComponent from './LogoComponent';
 import LocalLibraryIcon from '@material-ui/icons/LocalLibrary';
+import RateReviewIcon from '@material-ui/icons/RateReview';
+import LogoutIcon from '@material-ui/icons/ExitToApp';
 import Menu from './MenuComponent';
 import MenuItem from './MenuItemComponent';
 import { logout } from '../../services/firebase';
@@ -35,29 +31,29 @@ function SidebarComponent() {
             </div>
             <MenuItem
                 id={ROUTE.DASHBOARD_OVERVIEW}
-                title='Accueil'
+                title='ACCUEIL'
                 icon={HomeIcon}
                 onClick={() => onClick(ROUTE.DASHBOARD_OVERVIEW)}
             />
             <MenuItem
                 id={ROUTE.USERS}
-                title='Utilisateurs'
+                title='UTILISATEURS'
                 icon={UserIcon}
                 onClick={() => onClick(ROUTE.USERS)}
             />
             <MenuItem
                 id={ROUTE.BOOKSTORES}
-                title='Libraires'
+                title='LIBRAIRIES'
                 icon={LocalLibraryIcon}
                 onClick={() => onClick(ROUTE.BOOKSTORES)}
             />
             <MenuItem
-                id={ROUTE.BOOKS}
-                title='Livres'
-                icon={IconContacts}
-                onClick={() => onClick(ROUTE.BOOKS)}
+                id={ROUTE.COMMENTS}
+                title='COMMENTAIRES'
+                icon={RateReviewIcon}
+                onClick={() => onClick(ROUTE.COMMENTS)}
             />
-            <MenuItem id='logout' title='Se déconnecter' icon={IconLogout} onClick={disconnect} />
+            <MenuItem id='logout' title='SE DECONNECTER' icon={LogoutIcon} onClick={disconnect} />
         </Menu>
     );
 }

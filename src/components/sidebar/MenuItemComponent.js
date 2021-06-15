@@ -40,7 +40,7 @@ function MenuItemComponent({ children, icon: Icon, id, items = [], level = 1, on
     const classes = useStyles({ theme, level, isActive });
     const classNameColumn = isActive ? classes.leftBar : '';
     const classNameContainer = [classes.container, isActive && classes.activeContainer].join(' ');
-    const iconColor = isActive ? theme.color.paleBlue : theme.color.grayishBlue2;
+    const iconColor = isActive ? theme.color.light : theme.color.grayishBlue2;
 
     function onItemClicked(e) {
         if (onClick) {
@@ -52,7 +52,7 @@ function MenuItemComponent({ children, icon: Icon, id, items = [], level = 1, on
     return (
         <Column key={id} className={classNameColumn}>
             <Row vertical='center' onClick={onItemClicked} className={classNameContainer}>
-                <Icon fill={iconColor} opacity={!isActive && '0.4'} />
+                <Icon fill={iconColor} opacity={!isActive && '0.3'} />
                 <span className={classes.title}>{title}</span>
             </Row>
         </Column>

@@ -8,9 +8,7 @@ export default {
     DASHBOARD_OVERVIEW: "/",
     USERS: "/users",
     USERS_DETAILS: "/user_detail",
-    BOOKS: "/books",
+    COMMENTS: "/comments",
     BOOKSTORES:"/bookstores",
     SETTINGS: "/settings",
-    EDIT_BOOK: "/edit_books",
-    EDIT_CATEGORY: "/edit_category",
 };
