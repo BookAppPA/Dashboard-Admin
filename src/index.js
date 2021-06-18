@@ -6,15 +6,24 @@ import Theme from './utils/theme';
 import App from './App';
 import './index.css';
 import { AuthProvider } from './context/Auth';
+import reducers from './redux/reducer.js';
+import thunkMiddleware from 'redux-thunk';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+
+const middleware = applyMiddleware(thunkMiddleware);
+const store = createStore(reducers, middleware);
 
 ReactDOM.render(
-    <AuthProvider>
-        <ThemeProvider theme={Theme}>
-            <Router>
-                <App />
-            </Router>
-        </ThemeProvider>
-    </AuthProvider>,
+    <Provider store={store}>
+        <AuthProvider>
+            <ThemeProvider theme={Theme}>
+                <Router>
+                    <App />
+                </Router>
+            </ThemeProvider>
+        </AuthProvider>
+    </Provider>,
     document.getElementById('root')
 );
 

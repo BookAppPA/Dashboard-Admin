@@ -1,12 +1,14 @@
-import { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import { useState, useEffect, useContext } from 'react';
 import { createUseStyles, useTheme } from 'react-jss';
-import { Box,Card, Typography } from '@material-ui/core';
-import { dbUsers } from '../../services/firebase';
+import { Box,Card } from '@material-ui/core';
 import MUIDataTable from "mui-datatables";
-import { useHistory, Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import ROUTE from '../../routes/RoutesNames';
 import Chip from '@material-ui/core/Chip';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllUsers, getUserById } from '../../redux/actions';
+import { AuthContext } from '../../context/Auth';
+import { apiURL } from '../../utils/constants';
 
 const useStyles = createUseStyles((theme) => ({
   tableContainer: {
@@ -98,12 +100,15 @@ const Users = ({ ...rest }) => {
   const classes = useStyles({ theme });
   const [users, setUsers] = useState([]);
   const { push } = useHistory();
+  const dispatch = useDispatch();
+  const { token } = useContext(AuthContext);
+  const allUsers = useSelector((state) => state.allUsers);
 
-  const redirectTo = ( data ) => {
-    console.log(data);
-    push({
+  const redirectTo = async (rowData) => {
+    dispatch(getUserById(apiURL+`api/bdd/getUserById/${rowData[6]}`, token))
+    await push({
       pathname: ROUTE.USERS_DETAILS,
-      user: data
+      user: true
     });
   }
 
@@ -115,34 +120,23 @@ const Users = ({ ...rest }) => {
     onRowClick: redirectTo,
   };
 
-  const fetchUsers = async () => {
-    const response = dbUsers.collection('users').get()
-      .then(users => {
-        const data = users.docs.map(doc => doc.data());
-        setUsers(data); // array of cities objects
-      });
-    return response;
-  }
-
   useEffect(() => {
-    fetchUsers();
-  }, [])
+    if(allUsers.length == 0) {
+      dispatch(getAllUsers(apiURL+'api/bdd/getAllUsers', token))
+    }
+  }, [token, allUsers])
 
   return (
     <Card>
       <Box className={classes.tableContainer} sx={{ minWidth: 1050 }}>
         <MUIDataTable
-          data={users}
+          data={allUsers}
           columns={columns}
           options={options}
         />
       </Box>
     </Card>
   );
-};
-
-Users.propTypes = {
-  users: PropTypes.array.isRequired
 };
 
 export default Users;
