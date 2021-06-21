@@ -1,7 +1,13 @@
-import React from 'react';
+import React, { useEffect, useContext } from 'react';
 import { Column, Row } from 'simple-flexbox';
 import { createUseStyles } from 'react-jss';
 import CardComponent from '../../components/card/CardComponent';
+import { useSelector, useDispatch } from 'react-redux';
+import { getAllUsers, getUserById } from '../../redux/actions';
+import { AuthContext } from '../../context/Auth';
+import { apiURL } from '../../utils/constants';
+import { useHistory } from 'react-router-dom';
+import ROUTES from '../../routes/RoutesNames';
 
 const useStyles = createUseStyles({
     cardsContainer: {
@@ -43,7 +49,27 @@ const useStyles = createUseStyles({
 });
 
 function DashboardOverview() {
+
     const classes = useStyles();
+    const allUsers = useSelector((state) => state.allUsers);
+    console.log("ALLUSERS", allUsers)
+    const dispatch = useDispatch();
+    const { token } = useContext(AuthContext);
+    const { push } = useHistory();
+
+
+    function goToUsers() {
+        push(ROUTES.USERS);
+    };
+
+    function goToBookSellers() {
+        push(ROUTES.BOOKSTORES);
+    };
+
+    function goToRatings() {
+        push(ROUTES.COMMENTS);
+    };
+
     return (
         <Column>
             <Row
@@ -61,17 +87,21 @@ function DashboardOverview() {
                     <CardComponent
                         className={classes.miniCardContainer}
                         title='Utilisateurs'
-                        value='60'
+                        value={allUsers.length}
+                        onClick={goToUsers}
                     />
                     <CardComponent
                         className={classes.miniCardContainer}
-                        title='Auteurs'
+                        title='Librairies'
                         value='16'
+                        onClick={goToBookSellers}
+
                     />
                     <CardComponent
                         className={classes.miniCardContainer}
                         title='Livres'
                         value='43'
+                        onClick={goToRatings}
                     />
                 </Row>
             </Row>

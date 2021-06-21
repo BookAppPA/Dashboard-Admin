@@ -18,7 +18,7 @@ function PrivateRoutes() {
                 <Route exact path={ROUTE.USERS} component={Users} />
                 <Route exact path={ROUTE.USERS_DETAILS} component={UserDetails} />
                 <Route exact path={ROUTE.BOOKSTORES} component={Bookstores} />
-                <Route exact path={ROUTE.BOOKS} component={Comments} />
+                <Route exact path={ROUTE.COMMENTS} component={Comments} />
                 <Route exact path={ROUTE.SETTINGS} component={Settings} />
                 <Redirect to={ROUTE.DASHBOARD_OVERVIEW}/>
             </Switch>

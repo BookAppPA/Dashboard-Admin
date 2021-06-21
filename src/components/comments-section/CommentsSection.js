@@ -6,28 +6,38 @@ import {
     Paper,
 } from '@material-ui/core';
 import { Rating } from '@material-ui/lab';
+import { createUseStyles } from 'react-jss';
+
+const useStyles = createUseStyles({
+    container: {
+        maxWidth: window.innerWidth * 0.6,
+    },
+});
 
 const CommentsSection = ({
     comments,
 }) => {
+    const classes = useStyles();
+
     return (
-        <div className="App">
-            <h2>{comments.length} Avis</h2>
+        <div>
+             <h2>{comments.length} Avis</h2>
             <Paper style={{ padding: "40px 20px" }}>
-                {comments.map((comment, index) => (
+                {comments.map((comment) => (
                     <div>
                         <Grid container wrap="nowrap" spacing={2}>
                             <Grid item>
-                                <Avatar alt="Remy Sharp" src={comment.user_pic} />
+                                <Avatar style={{width: 100, height:100}} alt="Remy Sharp" src={comment.user_pic} />
                             </Grid>
                             <Grid justifyContent="left" item xs zeroMinWidth>
-                                <h4 style={{ margin: 0, textAlign: "left" }}>{comment.book_title} - {comment.title}</h4>
-                                <p style={{ textAlign: "left" }}>
+                                <h4 style={{ margin: 0, textAlign: "left" }}>{comment.book_title}</h4>
+                                <h5 style={{ margin: 10, textAlign: "left" }}>{comment.title}</h5>
+                                <p style={{ textAlign: "left", margin: 20 }}>
                                     {comment.message}
                                 </p>
-                                <p style={{ textAlign: "left", color: "gray" }}>
+                                {/* <p style={{ textAlign: "left", color: "gray" }}>
                                     {comment.timestamp}
-                                </p>
+                                </p> */}
                             </Grid>
                             <img
                                 src={comment.book_pic}

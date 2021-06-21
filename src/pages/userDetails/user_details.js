@@ -1,7 +1,7 @@
-import { useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { createUseStyles, useTheme } from 'react-jss';
 import { useLocation, useHistory } from 'react-router-dom';
-import { Skeleton, Rating } from '@material-ui/lab';
+import { Skeleton } from '@material-ui/lab';
 import { Column, Row } from 'simple-flexbox';
 import {
   CardContent,
@@ -13,15 +13,19 @@ import {
   Box,
   Card,
   Divider,
-  Avatar,
   Grid,
+} from '@material-ui/core';
+import {
+  Avatar,
   Paper,
 } from '@material-ui/core';
-import comments from '../../services/mocks/comments';
-import { useSelector } from 'react-redux';
+import { Rating } from '@material-ui/lab';
 import ROUTE from '../../routes/RoutesNames';
 import CommentsSection from '../../components/comments-section';
-
+import { getCommentsByUser } from '../../redux/actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { AuthContext } from '../../context/Auth';
+import { apiURL } from '../../utils/constants';
 
 const useStyles = createUseStyles((theme) => ({
   tableContainer: {
@@ -63,18 +67,28 @@ const useStyles = createUseStyles((theme) => ({
 const UsersDetails = ({ ...rest }) => {
   const theme = useTheme();
   const classes = useStyles({ theme });
+
   const { push } = useHistory();
   const location = useLocation();
-  //const user = location.user;
+  const { token } = useContext(AuthContext)
+
+  const dispatch = useDispatch();
+
   const user = useSelector((state) => state.userById);
+  const commentsById = useSelector((state) => state.listCommentsByUser);
+  const listBooks = useSelector((state) => state.userListBooks);
 
-  useEffect(() => {
-    if (!location.user) {
-      push(ROUTE.USERS);
+  useEffect(async () => {
+    if(!user.length > 0) {
+      await console.log('List', listBooks);
+      var list = ""
+      listBooks.forEach((book) => {
+          list += (book.id + "/");
+      });
+      list = list.substring(0, list.length - 1);
+      dispatch(getCommentsByUser(apiURL + `api/bdd/userListRatings`, token, user.uid, list))
     }
-  }, [location])
-
-  console.log("USER", user)
+  }, [])
 
   return (
     <div>
@@ -161,9 +175,7 @@ const UsersDetails = ({ ...rest }) => {
           </Button>
         </Box>
       </Card>
-      <div className="App">
-        <CommentsSection comments={comments} />
-      </div>
+      <CommentsSection comments={commentsById} />
     </div>
   );
 };
