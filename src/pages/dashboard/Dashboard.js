@@ -51,11 +51,12 @@ const useStyles = createUseStyles({
 function DashboardOverview() {
 
     const classes = useStyles();
-    const allUsers = useSelector((state) => state.allUsers);
-    console.log("ALLUSERS", allUsers)
     const dispatch = useDispatch();
     const { token } = useContext(AuthContext);
     const { push } = useHistory();
+
+    const allUsers = useSelector((state) => state.allUsers);
+    const allBookSellers = useSelector((state) => state.allBookSellers)
 
 
     function goToUsers() {
@@ -93,7 +94,7 @@ function DashboardOverview() {
                     <CardComponent
                         className={classes.miniCardContainer}
                         title='Librairies'
-                        value='16'
+                        value={allBookSellers.length}
                         onClick={goToBookSellers}
 
                     />

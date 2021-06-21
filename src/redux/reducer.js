@@ -6,6 +6,7 @@ const reducers = (
         userById: [],
         listCommentsByUser: [],
         userListBooks: [],
+        sellerBookList: [],
     },
     action,
 ) => {
@@ -44,6 +45,12 @@ const reducers = (
             return {
                 ...state,
                 allBookSellers: action.payload,
+            }
+        }
+        case 'GET_SELLER_LIST': {
+            return {
+                ...state,
+                sellerBookList: action.payload,
             }
         }
     }

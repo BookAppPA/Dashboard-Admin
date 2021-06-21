@@ -85,9 +85,16 @@ function HeaderComponent() {
         case currentItem === ROUTE.SETTINGS:
             title = 'Paramètres';
             break;
+        case currentItem === ROUTE.USERS_DETAILS:
+            title = "Détails d'un utilisateur";
+        break;
+        case currentItem === ROUTE.BOOKSELLER_DETAIL:
+            title = "Détails d'un Libraire"
         default:
             title = '';
     }
+
+    console.log('CURRENT ITEM', currentItem);
 
     function onSettingsClick() {
         push(ROUTE.SETTINGS);

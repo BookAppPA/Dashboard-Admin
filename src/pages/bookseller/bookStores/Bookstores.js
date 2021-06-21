@@ -2,7 +2,7 @@ import { useState, useContext, useEffect} from 'react';
 import { createUseStyles, useTheme } from 'react-jss';
 import { Box, Card} from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllBookSellers } from '../../../redux/actions';
+import { getAllBookSellers, getSellerList, getUserById } from '../../../redux/actions';
 import { AuthContext } from '../../../context/Auth';
 import { apiURL } from '../../../utils/constants';
 import MUIDataTable from "mui-datatables";
@@ -53,11 +53,28 @@ const columns = [
     }
   },
   {
+    name: "address",
+    label: "Adresse",
+    options: {
+      filter: false,
+      sort: false,
+    }
+  },
+  {
     name: "phone",
     label: "Numéro de téléphone",
     options: {
       filter: true,
       sort: true,
+    }
+  },
+  {
+    name: "id",
+    label: "ID",
+    options: {
+      filter: false,
+      sort: false,
+      display: false,
     }
   },
 ];
@@ -72,12 +89,11 @@ const Bookstores = ({ ...rest }) => {
 
   const redirectTo = async (rowData) => {
 
-    // await dispatch(getUserById(apiURL + `api/bdd/getUserById/${rowData[6]}`, token));
-    // await dispatch(getUserListBooks(apiURL + `api/bdd/userListBooks/${rowData[6]}`, token));
-
+    await dispatch(getUserById(apiURL + `api/bdd/getUserById/${rowData[5]}`, token));
+    await dispatch(getSellerList(apiURL + `/api/bdd/getListBooksWeek/${rowData[5]}`, token));
     push({
       pathname: ROUTE.BOOKSELLER_DETAIL,
-      userID: rowData[6]
+      sellerId: rowData[5]
     });
   }
 
@@ -91,7 +107,7 @@ const Bookstores = ({ ...rest }) => {
 
   useEffect(() => {
     if (allBookSellers.length == 0) {
-      dispatch(getAllBookSellers(apiURL + '/api/bdd/getAllBookSellers', token))
+      dispatch(getAllBookSellers(apiURL + '/api/bdd/getInitListBookSeller', token))
     }
   }, [token])
 

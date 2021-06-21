@@ -90,3 +90,19 @@ export function getAllBookSellers(url, token) {
       });
   };
 }
+
+export function getSellerList(url, token) {
+  return function (dispatch) {
+    return axios.get(url, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    })
+      .then(res => {
+        dispatch({ type: 'GET_SELLER_LIST', payload: res.data });
+      })
+      .catch(function (error) {
+        console.log(error.message);
+      });
+  };
+}
