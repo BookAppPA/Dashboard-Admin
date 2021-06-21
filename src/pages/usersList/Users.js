@@ -3,12 +3,12 @@ import { createUseStyles, useTheme } from 'react-jss';
 import { Box, Card } from '@material-ui/core';
 import MUIDataTable from "mui-datatables";
 import { useHistory } from 'react-router-dom';
-import ROUTE from '../../routes/RoutesNames';
+import ROUTE from '../../../routes/RoutesNames';
 import Chip from '@material-ui/core/Chip';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllUsers, getUserById, getUserListBooks } from '../../redux/actions';
-import { AuthContext } from '../../context/Auth';
-import { apiURL } from '../../utils/constants';
+import { getAllUsers, getUserById, getUserListBooks } from '../../../redux/actions';
+import { AuthContext } from '../../../context/Auth';
+import { apiURL } from '../../../utils/constants';
 import imageNotFound from'../../assets/png/imagenotfound.png';
 
 const useStyles = createUseStyles((theme) => ({

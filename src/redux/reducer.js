@@ -2,6 +2,7 @@ const reducers = (
     state = {
         isFetching: true,
         allUsers: [],
+        allBookSellers: [],
         userById: [],
         listCommentsByUser: [],
         userListBooks: [],
@@ -37,6 +38,12 @@ const reducers = (
             return {
                 ...state,
                 userListBooks: action.payload,
+            }
+        }
+        case 'GET_ALL_BOOKSELLERS': {
+            return {
+                ...state,
+                allBookSellers: action.payload,
             }
         }
     }

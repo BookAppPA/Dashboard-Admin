@@ -73,3 +73,20 @@ export function getCommentsByUser(url, token, uid, userListBooks) {
       });
   };
 }
+
+
+export function getAllBookSellers(url, token) {
+  return function (dispatch) {
+    return axios.get(url, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    })
+      .then(res => {
+        dispatch({ type: 'GET_ALL_BOOKSELLERS', payload: res.data });
+      })
+      .catch(function (error) {
+        console.log(error.message);
+      });
+  };
+}

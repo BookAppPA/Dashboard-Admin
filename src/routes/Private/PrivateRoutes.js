@@ -4,9 +4,10 @@ import ROUTE from '../RoutesNames';
 import LoadingComponent from '../../components/loading/LoadingComponent';
 
 const DashboardOverview = lazy(() => import('../../pages/dashboard/Dashboard'));
-const Users = lazy(() => import('../../pages/users/Users'));
-const UserDetails = lazy(() => import('../../pages/userDetails/'));
-const Bookstores = lazy(() => import('../../pages/bookStores/Bookstores'));
+const Users = lazy(() => import('../../pages/user/usersList/'));
+const UserDetails = lazy(() => import('../../pages/user/userDetails/'));
+const Bookstores = lazy(() => import('../../pages/bookseller/bookStores/'));
+const BookSellerDetail = lazy(() => import('../../pages/bookseller/bookSellerDetail'));
 const Comments = lazy(() => import('../../pages/comments/Comments'));
 const Settings = lazy(() => import('../../pages/settings/Settings'));
 
@@ -18,6 +19,7 @@ function PrivateRoutes() {
                 <Route exact path={ROUTE.USERS} component={Users} />
                 <Route exact path={ROUTE.USERS_DETAILS} component={UserDetails} />
                 <Route exact path={ROUTE.BOOKSTORES} component={Bookstores} />
+                <Route exact path={ROUTE.BOOKSELLER_DETAIL} component={BookSellerDetail} />
                 <Route exact path={ROUTE.COMMENTS} component={Comments} />
                 <Route exact path={ROUTE.SETTINGS} component={Settings} />
                 <Redirect to={ROUTE.DASHBOARD_OVERVIEW}/>

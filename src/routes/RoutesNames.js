@@ -5,10 +5,19 @@ export default {
     FORGOT_PASSWORD: "/forgot_password",
 
     //Privates
+     //Home
     DASHBOARD_OVERVIEW: "/",
+
+    //Users
     USERS: "/users",
     USERS_DETAILS: "/user_detail",
+    
     COMMENTS: "/comments",
+
+    //Booksellers
     BOOKSTORES:"/bookstores",
+    BOOKSELLER_DETAIL: "/bookseller_detail",
+
+    //Settings
     SETTINGS: "/settings",
 };

@@ -20,12 +20,14 @@ import {
   Paper,
 } from '@material-ui/core';
 import { Rating } from '@material-ui/lab';
-import ROUTE from '../../routes/RoutesNames';
-import CommentsSection from '../../components/comments-section';
-import { getCommentsByUser } from '../../redux/actions';
+import ROUTE from '../../../routes/RoutesNames';
+import CommentsSection from '../../../components/comments-section';
+import { getCommentsByUser } from '../../../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
-import { AuthContext } from '../../context/Auth';
-import { apiURL } from '../../utils/constants';
+import { AuthContext } from '../../../context/Auth';
+import { apiURL } from '../../../utils/constants';
+import axios from 'axios';
+import FlatList from 'flatlist-react';
 
 const useStyles = createUseStyles((theme) => ({
   tableContainer: {
@@ -77,6 +79,19 @@ const UsersDetails = ({ ...rest }) => {
   const user = useSelector((state) => state.userById);
   const commentsById = useSelector((state) => state.listCommentsByUser);
   const listBooks = useSelector((state) => state.userListBooks);
+  const [listDetailsOfBooks, setListDetails] = useState([]);
+
+  const renderBooks = (book, idx) => {
+    return (
+        <Column>
+          <img
+            src={book.imageLinks.medium}
+            alt={'picture'}
+            className={classes.userImage}
+          />
+        </Column>
+    );
+  }
 
   useEffect(async () => {
     if(!user.length > 0) {
@@ -86,9 +101,25 @@ const UsersDetails = ({ ...rest }) => {
           list += (book.id + "/");
       });
       list = list.substring(0, list.length - 1);
-      dispatch(getCommentsByUser(apiURL + `api/bdd/userListRatings`, token, user.uid, list))
+      dispatch(getCommentsByUser(apiURL + `api/bdd/userListRatings`, token, user.uid, list));
+      getBooksInfos();
     }
   }, [])
+
+  const getBooksInfos =  () => {
+    var array = [];
+    listBooks.forEach((book) => {
+      axios.get(apiURL + `api/bdd/bookDetail/${book.id}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        }})
+        .then((res)=> {
+          array.push(res.data.volumeInfo);
+      })
+    })
+    console.log(array);
+      setListDetails(array);
+  }
 
   return (
     <div>
