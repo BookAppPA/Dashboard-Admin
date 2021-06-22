@@ -21,7 +21,7 @@ const CommentsSection = ({
 
     return (
         <div>
-             <h2>{comments.length} Avis</h2>
+             <h2>{`Ses derniers avis (${comments.length})`}</h2>
             <Paper style={{ padding: "40px 20px" }}>
                 {comments.map((comment) => (
                     <div>

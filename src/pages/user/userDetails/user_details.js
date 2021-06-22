@@ -27,7 +27,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AuthContext } from '../../../context/Auth';
 import { apiURL } from '../../../utils/constants';
 import axios from 'axios';
-import FlatList from 'flatlist-react';
+import InfosDetails from '../../../components/infosDetails/';
+import ImageNotFound from '../../../assets/png/imagenotfound.png';
+import BookComponent from '../../../components/bookComponent';
 
 const useStyles = createUseStyles((theme) => ({
   tableContainer: {
@@ -40,6 +42,7 @@ const useStyles = createUseStyles((theme) => ({
     height: 300,
     borderRadius: 20,
     borderTopLeftRadius: 0,
+    marginRight: 20,
   },
   imageContainer: {
     paddingBottom: 10,
@@ -57,12 +60,15 @@ const useStyles = createUseStyles((theme) => ({
     display: 'flex',
     justifyContent: 'flex-end',
     alignItems: 'center',
-    padding: 20,
     position: 'relative'
   },
   description: {
     // backgroundColor: theme.color.light,
-    width: window.innerWidth * 0.609
+    width: window.innerWidth * 0.609,
+  },
+  chip: {
+    width: window.innerWidth * 0.5,
+    marginTop: 100,
   }
 }));
 
@@ -79,123 +85,69 @@ const UsersDetails = ({ ...rest }) => {
   const user = useSelector((state) => state.userById);
   const commentsById = useSelector((state) => state.listCommentsByUser);
   const listBooks = useSelector((state) => state.userListBooks);
-  const [listDetailsOfBooks, setListDetails] = useState([]);
-
-  const renderBooks = (book, idx) => {
-    return (
-        <Column>
-          <img
-            src={book.imageLinks.medium}
-            alt={'picture'}
-            className={classes.userImage}
-          />
-        </Column>
-    );
-  }
 
   useEffect(async () => {
-    if(!user.length > 0) {
+    if (!user.length > 0) {
       await console.log('List', listBooks);
       var list = ""
       listBooks.forEach((book) => {
-          list += (book.id + "/");
+        list += (book.id + "/");
       });
       list = list.substring(0, list.length - 1);
       dispatch(getCommentsByUser(apiURL + `api/bdd/userListRatings`, token, user.uid, list));
-      getBooksInfos();
+      await getBooksInfos();
     }
   }, [])
 
-  const getBooksInfos =  () => {
+  const getBooksInfos = async () => {
     var array = [];
     listBooks.forEach((book) => {
       axios.get(apiURL + `api/bdd/bookDetail/${book.id}`, {
         headers: {
           'Authorization': `Bearer ${token}`,
-        }})
-        .then((res)=> {
-          array.push(res.data.volumeInfo);
+        }
       })
+        .then(async (res) => {
+          await array.push(res.data.volumeInfo);
+        })
+        .catch(error => {
+          console.log(error);
+        })
     })
-    console.log(array);
-      setListDetails(array);
   }
 
   return (
     <div>
-      <Card className={classes.tableContainer}>
-        <CardHeader
-          title={user.pseudo}
-          className={classes.tableContainer}
-        />
-        <Row className={classes.tableContainer}>
+      <Column>
+        <Row>
+          <img
+            src={user.picture ? user.picture : ImageNotFound}
+            alt={'picture'}
+            className={classes.userImage}
+          />
           <Column>
-            <Box className={classes.imageContainer} sx={{ minWidth: 1050 }}>
-              {!user ?
-                <Skeleton height={160} width={160} borderRadius={20} variant="rect" animation="wave" />
+            <TextareaAutosize
+              disabled={true}
+              rowsMin={10}
+              className={classes.description}
+              aria-label="minimum height"
+              placeholder="Bio"
+              value={user.bio}
+            />
+            <div className={classes.chip}>
+              {user.isBlocked ?
+                <Chip label="Bloqué" color="secondary" />
                 :
-                <img
-                  src={user.picture}
-                  alt={'picture'}
-                  className={classes.userImage}
-                />
+                <Chip label="Autorisé" color="primary" />
               }
-            </Box>
-            {user.isBlocked ?
-              <Chip label="Bloqué" color="secondary" />
-              :
-              <Chip label="Autorisé" color="primary" />
-            }
+            </div>
           </Column>
-          <Divider />
-          <CardContent>
-            <Grid
-              container
-              spacing={3}
-            >
-              <Grid
-                item
-                md={6}
-                xs={12}
-              >
-                <TextField
-                  disabled={true}
-                  fullWidth
-                  //label="Pseudo"
-                  value={user.pseudo}
-                  variant="outlined"
-                />
-              </Grid>
-              <Grid
-                item
-                md={6}
-                xs={12}
-              >
-                <TextField
-                  disabled={true}
-                  fullWidth
-                  //label="Mail"
-                  value={user.email}
-                  variant="outlined"
-                />
-              </Grid>
-              <Grid
-                item
-                md={6}
-                xs={12}
-              >
-                <TextareaAutosize
-                  disabled={true}
-                  rowsMin={10}
-                  className={classes.description}
-                  aria-label="minimum height"
-                  placeholder="Bio"
-                  value={user.bio}
-                />
-              </Grid>
-            </Grid>
-          </CardContent>
-          <Divider />
+        </Row>
+        <Row style={{ marginBottom: 20 }}>
+          <InfosDetails name='Pseudo' value={user.pseudo} />
+          <InfosDetails name='Mail' value={user.email} />
+          <InfosDetails name='Followers' value={user.nbFollowers ? user.nbFollowers : 0} />
+          <InfosDetails name="Avis" value={user.nbRatings ? user.nbRatings : 0} />
         </Row>
         <Box className={classes.button}>
           <Button
@@ -205,8 +157,20 @@ const UsersDetails = ({ ...rest }) => {
             {user.isBlocked ? "Débloquer" : "Bloquer"}
           </Button>
         </Box>
-      </Card>
+      </Column>
       <CommentsSection comments={commentsById} />
+      <Column>
+          <h3>Ses derniers livres</h3>
+          <Row>
+          {listBooks.map((book) => {
+              return (
+                <div style={{marginTop: 20, display: 'flex', flexDirection:'column'}}>
+                  <BookComponent img={book.volumeInfo.imageLinks.medium} title={book.volumeInfo.title} />
+                </div>
+              )
+          })}
+        </Row>
+      </Column>
     </div>
   );
 };
