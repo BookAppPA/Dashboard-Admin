@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAllUsers, getUserById, getUserListBooks } from '../../../redux/actions';
 import { AuthContext } from '../../../context/Auth';
 import { apiURL } from '../../../utils/constants';
-import imageNotFound from'../../../assets/png/imagenotfound.png';
+import imageNotFound from '../../../assets/png/imagenotfound.png';
 
 const useStyles = createUseStyles((theme) => ({
   tableContainer: {
@@ -35,12 +35,12 @@ const columns = [
       filter: false,
       sort: false,
       customBodyRender: (value) => (
-        value ? 
+        value ?
           <img
             src={value}
             alt='avatar'
             style={{ width: 80, height: 80 }} />
-        :
+          :
           <img
             src={imageNotFound}
             alt='avatar'
@@ -136,15 +136,13 @@ const Users = ({ ...rest }) => {
   }, [token])
 
   return (
-    <Card>
-      <Box className={classes.tableContainer} sx={{ minWidth: 1050 }}>
-        <MUIDataTable
-          data={allUsers}
-          columns={columns}
-          options={options}
-        />
-      </Box>
-    </Card>
+    <Box className={classes.tableContainer} sx={{ minWidth: 1050 }}>
+      <MUIDataTable
+        data={allUsers}
+        columns={columns}
+        options={options}
+      />
+    </Box>
   );
 };
 

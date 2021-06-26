@@ -94,8 +94,6 @@ function HeaderComponent() {
             title = '';
     }
 
-    console.log('CURRENT ITEM', currentItem);
-
     function onSettingsClick() {
         push(ROUTE.SETTINGS);
     }

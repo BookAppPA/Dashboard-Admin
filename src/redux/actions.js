@@ -46,8 +46,8 @@ export function getUserListBooks(url, token) {
         'Authorization': `Bearer ${token}`,
       },
     })
-      .then(res => {
-        dispatch({ type: 'GET_USER_LIST_BOOKS', payload: res.data });
+      .then(async res => {
+        await dispatch({ type: 'GET_USER_LIST_BOOKS', payload: res.data });
       })
       .catch(function (error) {
         console.log(error.message);
@@ -64,9 +64,29 @@ export function getCommentsByUser(url, token, uid, userListBooks) {
         'listbooks': userListBooks, 
       },
     })
-      .then(res => {
+      .then(async res => {
         console.log('TEST', res.data);
-        dispatch({ type: 'GET_COMMENTS_BY_USER', payload: res.data });
+        await dispatch({ type: 'GET_COMMENTS_BY_USER', payload: res.data });
+      })
+      .catch(function (error) {
+        console.log(error.message);
+      });
+  };
+}
+
+export function getCommentsByBookId(url, token) {
+  return function (dispatch) {
+    return axios.get(url, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    })
+      .then(async res => {
+        var array1 = [];
+        array1.push(res.data)
+
+        await dispatch({ type: 'GET_COMMENTS_BY_BOOK_ID', payload: array1 });
+        dispatch(setisFetching(false));
       })
       .catch(function (error) {
         console.log(error.message);
@@ -82,8 +102,8 @@ export function getAllBookSellers(url, token) {
         'Authorization': `Bearer ${token}`,
       },
     })
-      .then(res => {
-        dispatch({ type: 'GET_ALL_BOOKSELLERS', payload: res.data });
+      .then(async res => {
+        await dispatch({ type: 'GET_ALL_BOOKSELLERS', payload: res.data });
       })
       .catch(function (error) {
         console.log(error.message);

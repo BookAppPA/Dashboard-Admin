@@ -5,6 +5,7 @@ const reducers = (
         allBookSellers: [],
         userById: [],
         listCommentsByUser: [],
+        listCommentsByBookId: [],
         userListBooks: [],
         sellerBookList: [],
     },
@@ -32,7 +33,19 @@ const reducers = (
         case 'GET_COMMENTS_BY_USER': {
             return {
                 ...state,
-                listCommentsByUser: [...action.payload],
+                listCommentsByUser: action.payload,
+            }
+        }
+        case 'GET_COMMENTS_BY_BOOK_ID': {
+            const array = action.payload;
+            const previous = [...state.listCommentsByBookId];
+            var newArray = previous.concat(array);
+            var unique = [...new Set(newArray)];
+            var filter = unique.filter(value => Object.keys(value).length !== 0);
+
+            return {
+                ...state,
+                listCommentsByBookId: filter,
             }
         }
         case 'GET_USER_LIST_BOOKS': {

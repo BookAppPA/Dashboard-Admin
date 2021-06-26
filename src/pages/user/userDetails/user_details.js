@@ -1,26 +1,13 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import { createUseStyles, useTheme } from 'react-jss';
 import { useLocation, useHistory } from 'react-router-dom';
-import { Skeleton } from '@material-ui/lab';
 import { Column, Row } from 'simple-flexbox';
 import {
-  CardContent,
-  CardHeader,
   Chip,
-  TextField,
   TextareaAutosize,
   Button,
   Box,
-  Card,
-  Divider,
-  Grid,
 } from '@material-ui/core';
-import {
-  Avatar,
-  Paper,
-} from '@material-ui/core';
-import { Rating } from '@material-ui/lab';
-import ROUTE from '../../../routes/RoutesNames';
 import CommentsSection from '../../../components/comments-section';
 import { getCommentsByUser } from '../../../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';

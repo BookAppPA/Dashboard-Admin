@@ -1,6 +1,6 @@
-import { useState, useContext, useEffect} from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { createUseStyles, useTheme } from 'react-jss';
-import { Box, Card} from '@material-ui/core';
+import { Box, Card } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllBookSellers, getSellerList, getUserById } from '../../../redux/actions';
 import { AuthContext } from '../../../context/Auth';
@@ -112,15 +112,13 @@ const Bookstores = ({ ...rest }) => {
   }, [token])
 
   return (
-    <Card>
-      <Box className={classes.tableContainer} sx={{ minWidth: 1050 }}>
-        <MUIDataTable
-          data={allBookSellers}
-          columns={columns}
-          options={options}
-        />
-      </Box>
-    </Card>
+    <Box className={classes.tableContainer} sx={{ minWidth: 1050 }}>
+      <MUIDataTable
+        data={allBookSellers}
+        columns={columns}
+        options={options}
+      />
+    </Box>
   );
 };
 
