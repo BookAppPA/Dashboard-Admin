@@ -113,24 +113,21 @@ const Comments = ({ ...rest }) => {
   const getAllComments = async (allusersId) => {
     //get all books from users 
     await allusersId.map(async (id) => {
-      await dispatch(getUserListBooks(apiURL + `api/bdd/userListBooks/${id}`, token))
+      await dispatch(getUserListBooks(apiURL + `book/userListBooks/${id}`, token))
     })
-    console.log('USER LIST BOOKS', listBooks);
 
     var listArray = [];
     //filter the array and delete empty rows
     listArray.push(listBooks);
     var newArray = listArray.filter(e => e);
-    console.log('NEW USER LIST BOOKS', listArray);
 
     var books_results = []
     for (const books of newArray) {
-      console.log('TEST RENDER 2ND');
       books_results = await books;
     }
 
     for (const bookId of books_results) {
-      await dispatch(getCommentsByBookId(apiURL + `api/bdd/ratingByBook/${bookId.id}`, token));
+      await dispatch(getCommentsByBookId(apiURL + `rating/ratingByBook/${bookId.id}`, token));
     }
   }
 

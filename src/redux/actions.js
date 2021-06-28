@@ -7,6 +7,12 @@ export function setisFetching(trueOrFalse) {
   }
 }
 
+export function resetState() {
+  return {
+    type: "RESET_COMMENTS_LIST"
+  }
+}
+
 export function getAllUsers(url, token) {
   return function (dispatch) {
     return axios.get(url, {
@@ -65,7 +71,6 @@ export function getCommentsByUser(url, token, uid, userListBooks) {
       },
     })
       .then(async res => {
-        console.log('TEST', res.data);
         await dispatch({ type: 'GET_COMMENTS_BY_USER', payload: res.data });
       })
       .catch(function (error) {

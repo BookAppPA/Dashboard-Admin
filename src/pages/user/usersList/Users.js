@@ -112,8 +112,9 @@ const Users = ({ ...rest }) => {
 
   const redirectTo = async (rowData) => {
 
-    await dispatch(getUserById(apiURL + `api/bdd/getUserById/${rowData[6]}`, token));
-    await dispatch(getUserListBooks(apiURL + `api/bdd/userListBooks/${rowData[6]}`, token));
+    console.log('USER ID', rowData[6]);
+    await dispatch(getUserById(apiURL + `user/getUserById/${rowData[6]}`, token));
+    await dispatch(getUserListBooks(apiURL + `book/userListBooks/${rowData[6]}`, token));
 
     push({
       pathname: ROUTE.USERS_DETAILS,
@@ -131,8 +132,9 @@ const Users = ({ ...rest }) => {
 
   useEffect(() => {
     if (allUsers.length == 0) {
-      dispatch(getAllUsers(apiURL + 'api/bdd/getAllUsers', token))
+      dispatch(getAllUsers(apiURL + 'user/getAllUsers', token))
     }
+    console.log('ALL USERS', allUsers);
   }, [token])
 
   return (

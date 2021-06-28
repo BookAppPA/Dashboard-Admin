@@ -18,6 +18,12 @@ const reducers = (
                 isFetching: action.payload,
             };
         }
+        case 'RESET_COMMENTS_LIST': {
+            return {
+                ...state,
+                listCommentsByBookId: [],
+            }
+        }
         case 'GET_ALL_USERS': {
             return {
                 ...state,
@@ -31,9 +37,10 @@ const reducers = (
             };
         }
         case 'GET_COMMENTS_BY_USER': {
+            console.log('action.payload', action.payload)
             return {
                 ...state,
-                listCommentsByUser: action.payload,
+                listCommentsByUser: action.payload
             }
         }
         case 'GET_COMMENTS_BY_BOOK_ID': {

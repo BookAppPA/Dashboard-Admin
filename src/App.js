@@ -11,8 +11,8 @@ function App() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getAllUsers(apiURL+'api/bdd/getAllUsers', token));
-        dispatch(getAllBookSellers(apiURL + '/api/bdd/getInitListBookSeller', token))
+        dispatch(getAllUsers(apiURL+'user/getAllUsers', token));
+        dispatch(getAllBookSellers(apiURL + 'book/getInitListBookSeller', token))
       }, [token])
 
     return currentUser ? <PrivateSideBar /> : <PublicRoutes />;

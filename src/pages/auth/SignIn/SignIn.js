@@ -12,7 +12,7 @@ import ROUTE from '../../../routes/RoutesNames';
 import { useHistory } from 'react-router-dom';
 import { AuthContext } from "../../../context/Auth";
 import { signIn } from '../../../services/firebase';
-import Book from'../../../assets/png/book.png';
+import AppLogo from'../../../assets/png/BookApp_logo.png';
 import { Box } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
@@ -64,7 +64,7 @@ function logIn() {
         <div className={classes.paper}>
           <Box className={classes.logo}>
             <img
-                src={Book}
+                src={AppLogo}
                 alt='book'
                 className={classes.logo}
             />

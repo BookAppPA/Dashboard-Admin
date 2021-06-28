@@ -10666,7 +10666,7 @@ react-dnd@^11.1.3:
     dnd-core "^11.1.3"
     hoist-non-react-statics "^3.3.0"
 
-react-dom@^16.3.0:
+react-dom@^16.3.0, react-dom@^16.8.3:
   version "16.14.0"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.14.0.tgz#7ad838ec29a777fb3c75c3a190f661cf92ab8b89"
   integrity sha512-1gCeQXDLoIqMgqD3IO2Ah9bnf0w9kzhwN5q4FGnHZ67hBm9yePzB5JJAIQCc8x3pFnNlwFq4RidZggNAAkzWWw==
@@ -10708,6 +10708,14 @@ react-input-autosize@^3.0.0:
   integrity sha512-nL9uS7jEs/zu8sqwFE5MAPx6pPkNAriACQ2rGLlqmKr2sPGtN7TXTyDdQt4lbNXVx7Uzadb40x8qotIuru6Rhg==
   dependencies:
     prop-types "^15.5.8"
+
+react-intense@^0.1.8:
+  version "0.1.8"
+  resolved "https://registry.yarnpkg.com/react-intense/-/react-intense-0.1.8.tgz#57bbf6ffde990ccfb234f062b26ba53b74527a63"
+  integrity sha512-EDLv05lBvm7tZK7QCnO346DX45whHotKDdoAzrRdS2fdf/WF/HQcT9WiTyibr8doXMFFvScJfobfsdX54eR8aA==
+  dependencies:
+    react "^16.8.3"
+    react-dom "^16.8.3"
 
 react-is@^16.13.1, react-is@^16.6.0, react-is@^16.6.3, react-is@^16.7.0, react-is@^16.8.1:
   version "16.13.1"
@@ -10962,7 +10970,7 @@ react-virtualized@^9.21.2, react-virtualized@^9.9.0:
     prop-types "^15.7.2"
     react-lifecycles-compat "^3.0.4"
 
-"react@15.x || 16.x", react@^16.3.0:
+"react@15.x || 16.x", react@^16.3.0, react@^16.8.3:
   version "16.14.0"
   resolved "https://registry.yarnpkg.com/react/-/react-16.14.0.tgz#94d776ddd0aaa37da3eda8fc5b6b18a4c9a3114d"
   integrity sha512-0X2CImDkJGApiAlcf0ODKIneSwBPhqJawOa5wCtKbu7ZECrmS26NvtSILynQ66cgkT/RJ4LidJOc3bUESwmU8g==

@@ -1,7 +1,8 @@
 import React from 'react';
 import { Row } from 'simple-flexbox';
 import { createUseStyles, useTheme } from 'react-jss';
-import { IconLogo } from '../../assets/iconsSVG';
+import AppLogo from '../../assets/png/BookApp_logo.png';
+
 
 const useStyles = createUseStyles((theme) => ({
     container: {
@@ -13,6 +14,10 @@ const useStyles = createUseStyles((theme) => ({
         color: theme.color.grayishBlue,
         opacity: 0.7,
         marginLeft: 12
+    },
+    logo: {
+        width: 40,
+        height: 40,
     }
 }));
 
@@ -21,8 +26,8 @@ function LogoComponent() {
     const classes = useStyles({ theme });
     return (
         <Row className={classes.container} horizontal='center' vertical='center'>
-            <IconLogo />
-            <span className={classes.title}>BookApp PA</span>
+            <img src={AppLogo} className={classes.logo} alt='Logo' />
+            <span className={classes.title}>BookWorn</span>
         </Row>
     );
 }

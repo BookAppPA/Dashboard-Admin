@@ -89,8 +89,8 @@ const Bookstores = ({ ...rest }) => {
 
   const redirectTo = async (rowData) => {
 
-    await dispatch(getUserById(apiURL + `api/bdd/getUserById/${rowData[5]}`, token));
-    await dispatch(getSellerList(apiURL + `/api/bdd/getListBooksWeek/${rowData[5]}`, token));
+    await dispatch(getUserById(apiURL + `user/getUserById/${rowData[5]}`, token));
+    await dispatch(getSellerList(apiURL + `bookseller/getListBooksWeek/${rowData[5]}`, token));
     push({
       pathname: ROUTE.BOOKSELLER_DETAIL,
       sellerId: rowData[5]
@@ -107,7 +107,7 @@ const Bookstores = ({ ...rest }) => {
 
   useEffect(() => {
     if (allBookSellers.length == 0) {
-      dispatch(getAllBookSellers(apiURL + '/api/bdd/getInitListBookSeller', token))
+      dispatch(getAllBookSellers(apiURL + 'bookseller/getInitListBookSeller', token))
     }
   }, [token])
 

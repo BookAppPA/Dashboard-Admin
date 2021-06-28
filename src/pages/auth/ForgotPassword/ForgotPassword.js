@@ -10,7 +10,7 @@ import Container from '@material-ui/core/Container';
 import { Column } from 'simple-flexbox';
 import { useHistory } from 'react-router-dom';
 import { Box } from '@material-ui/core';
-import Book from'../../../assets/png/book.png';
+import AppLogo from'../../../assets/png/BookApp_logo.png';
 import { forgotPassword } from '../../../services/firebase';
 import { useState } from 'react';
 
@@ -62,7 +62,7 @@ export default function ForgotPassword() {
         <div className={classes.paper}>
         <Box className={classes.logo}>
             <img
-                src={Book}
+                src={AppLogo}
                 alt='book'
                 className={classes.logo}
             />

@@ -7,9 +7,12 @@ import {
   TextareaAutosize,
   Button,
   Box,
+  Card,
+  CardMedia,
+  CardActions
 } from '@material-ui/core';
 import CommentsSection from '../../../components/comments-section';
-import { getCommentsByUser } from '../../../redux/actions';
+import { getCommentsByUser, resetState } from '../../../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { AuthContext } from '../../../context/Auth';
 import { apiURL } from '../../../utils/constants';
@@ -27,9 +30,6 @@ const useStyles = createUseStyles((theme) => ({
   userImage: {
     width: 300,
     height: 300,
-    borderRadius: 20,
-    borderTopLeftRadius: 0,
-    marginRight: 20,
   },
   imageContainer: {
     paddingBottom: 10,
@@ -53,9 +53,9 @@ const useStyles = createUseStyles((theme) => ({
     // backgroundColor: theme.color.light,
     width: window.innerWidth * 0.609,
   },
-  chip: {
-    width: window.innerWidth * 0.5,
-    marginTop: 100,
+  backgroundActions: {
+    backgroundColor: '#ECECE5',
+    justifyContent: 'center'
   }
 }));
 
@@ -64,7 +64,6 @@ const UsersDetails = ({ ...rest }) => {
   const classes = useStyles({ theme });
 
   const { push } = useHistory();
-  const location = useLocation();
   const { token } = useContext(AuthContext)
 
   const dispatch = useDispatch();
@@ -72,24 +71,32 @@ const UsersDetails = ({ ...rest }) => {
   const user = useSelector((state) => state.userById);
   const commentsById = useSelector((state) => state.listCommentsByUser);
   const listBooks = useSelector((state) => state.userListBooks);
+  const list = ""
 
-  useEffect(async () => {
-    if (!user.length > 0) {
-      await console.log('List', listBooks);
-      var list = ""
-      listBooks.forEach((book) => {
-        list += (book.id + "/");
-      });
-      list = list.substring(0, list.length - 1);
-      dispatch(getCommentsByUser(apiURL + `api/bdd/userListRatings`, token, user.uid, list));
-      await getBooksInfos();
+  useEffect(() => {
+    console.log('user', user);
+    console.log('commentbyId', commentsById);
+
+    console.log('List', listBooks);
+    var list = ""
+    listBooks.forEach((book) => {
+      list += (book.id + "/");
+    });
+    list = list.substring(0, list.length - 1);
+    console.log('STRING LIST', list);
+    console.log('USER ID IN DETAILS', user.uid);
+    dispatch(getCommentsByUser(apiURL + `rating/userListRatings`, token, user.uid, list));
+    getBooksInfos();
+    return () => {
+      dispatch(resetState());
     }
   }, [])
 
   const getBooksInfos = async () => {
+    console.log('test book info');
     var array = [];
     listBooks.forEach((book) => {
-      axios.get(apiURL + `api/bdd/bookDetail/${book.id}`, {
+      axios.get(apiURL + `book/bookDetail/${book.id}`, {
         headers: {
           'Authorization': `Bearer ${token}`,
         }
@@ -107,12 +114,22 @@ const UsersDetails = ({ ...rest }) => {
     <div>
       <Column>
         <Row>
-          <img
-            src={user.picture ? user.picture : ImageNotFound}
-            alt={'picture'}
-            className={classes.userImage}
-          />
-          <Column>
+          <Card>
+            <CardMedia
+              className={classes.userImage}
+              image={user.picture ? user.picture : ImageNotFound}
+            />
+            <CardActions className={classes.backgroundActions}>
+              <div className={classes.chip}>
+                {user.isBlocked ?
+                  <Chip label="Bloqué" color="secondary" />
+                  :
+                  <Chip label="Autorisé" color="primary" />
+                }
+              </div>
+            </CardActions>
+          </Card>
+          <Column style={{ marginLeft: 15 }}>
             <TextareaAutosize
               disabled={true}
               rowsMin={10}
@@ -121,13 +138,6 @@ const UsersDetails = ({ ...rest }) => {
               placeholder="Bio"
               value={user.bio}
             />
-            <div className={classes.chip}>
-              {user.isBlocked ?
-                <Chip label="Bloqué" color="secondary" />
-                :
-                <Chip label="Autorisé" color="primary" />
-              }
-            </div>
           </Column>
         </Row>
         <Row style={{ marginBottom: 20 }}>
@@ -147,14 +157,14 @@ const UsersDetails = ({ ...rest }) => {
       </Column>
       <CommentsSection comments={commentsById} />
       <Column>
-          <h3>Ses derniers livres</h3>
-          <Row>
+        <h3>Ses derniers livres</h3>
+        <Row>
           {listBooks.map((book) => {
-              return (
-                <div style={{marginTop: 20, display: 'flex', flexDirection:'column'}}>
-                  <BookComponent img={book.volumeInfo.imageLinks.medium} title={book.volumeInfo.title} />
-                </div>
-              )
+            return (
+              <div style={{ marginTop: 20, display: 'flex', flexDirection: 'column' }}>
+                <BookComponent img={book.volumeInfo.imageLinks.medium ? book.volumeInfo.imageLinks.medium : book.volumeInfo.imageLinks.smallThumbnail} title={book.volumeInfo.title} />
+              </div>
+            )
           })}
         </Row>
       </Column>
