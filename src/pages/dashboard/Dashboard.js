@@ -53,6 +53,7 @@ function DashboardOverview() {
     const classes = useStyles();
     const dispatch = useDispatch();
     const { token } = useContext(AuthContext);
+    console.log('token', token);
     const { push } = useHistory();
 
     const allUsers = useSelector((state) => state.allUsers);
