@@ -7,7 +7,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { Column } from 'simple-flexbox';
+import { Column, Row } from 'simple-flexbox';
 import ROUTE from '../../../routes/RoutesNames';
 import { useHistory } from 'react-router-dom';
 import { AuthContext } from "../../../context/Auth";
@@ -51,6 +51,10 @@ export default function SignIn() {
   function forgotPassword() {
     console.log("Test forgot");
     push(ROUTE.FORGOT_PASSWORD)
+}
+
+function goToCGU() {
+  push(ROUTE.CGU)
 }
 
 function logIn() {
@@ -110,9 +114,14 @@ function logIn() {
             </Button>
             <Grid container>
               <Grid container justify='center' direction='row' alignItems="center" item xs>
-                <Link onClick={forgotPassword} variant="body2">
-                  Mot de passe oublié ?
-                </Link>
+                <Row>
+                  <Link onClick={forgotPassword} variant="body2">
+                    Mot de passe oublié ?
+                  </Link>
+                  <Link onClick={goToCGU} variant="body2">
+                    Conditions d'utilisation
+                  </Link>
+                </Row>
               </Grid>
             </Grid>
           </form>

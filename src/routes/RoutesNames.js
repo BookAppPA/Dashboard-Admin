@@ -3,6 +3,7 @@ export default {
     // Public 
     LOGIN: "/login",
     FORGOT_PASSWORD: "/forgot_password",
+    CGU: "/cgu",
 
     //Privates
      //Home
