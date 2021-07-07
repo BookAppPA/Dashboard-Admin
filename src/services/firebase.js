@@ -5,8 +5,10 @@ export const dbUsers = firebaseConfig.firestore();
 
 export const signIn = (email, pwd, push, route) => {
   try {
-    firebaseConfig.auth().signInWithEmailAndPassword(email, pwd);
-    push(route);
+    if(email === "admin@bookapp.com"){
+      firebaseConfig.auth().signInWithEmailAndPassword(email, pwd);
+      push(route);
+    }
   } catch (error) {
     alert(error);
   }
