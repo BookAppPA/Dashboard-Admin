@@ -67,42 +67,44 @@ const BookSellerDetails = ({ ...rest }) => {
     <div>
       <Column>
         <Row>
-          <Card className={classes.mapContainer}>
-            <ReactMapGL
-              {...viewport}
-              center={[viewport.latitude, viewport.longitude]}
-              width="100%"
-              height="100%"
-              mapStyle={"mapbox://styles/mapbox/streets-v11"}
-              onViewportChange={(viewport) => setViewport(viewport)}
-              mapboxApiAccessToken={process.env.REACT_APP_MAPGL_TOKEN}
-            >
-              <Marker
-                longitude={bookSeller.coord.lon}
-                latitude={bookSeller.coord.lat}
+          {bookSeller.coord != undefined && (
+            <Card className={classes.mapContainer}>
+              <ReactMapGL
+                {...viewport}
+                center={[viewport.latitude, viewport.longitude]}
+                width="100%"
+                height="100%"
+                mapStyle={"mapbox://styles/mapbox/streets-v11"}
+                onViewportChange={(viewport) => setViewport(viewport)}
+                mapboxApiAccessToken={process.env.REACT_APP_MAPGL_TOKEN}
               >
-                <div onClick={() => { togglePopup(!showPopup) }}>
-                  <GeoIcon color={'secondary'} />
-                </div>
-              </Marker>
-              {showPopup &&
-                <Popup
-                  latitude={bookSeller.coord.lat}
+                <Marker
                   longitude={bookSeller.coord.lon}
-                  closeButton={true}
-                  closeOnClick={false}
-                  onClose={() => togglePopup(false)}
+                  latitude={bookSeller.coord.lat}
                 >
-                  <div>{bookSeller.address}</div>
-                </Popup>
-              }
-            </ReactMapGL>
-          </Card>
+                  <div onClick={() => { togglePopup(!showPopup) }}>
+                    <GeoIcon color={'secondary'} />
+                  </div>
+                </Marker>
+                {showPopup &&
+                  <Popup
+                    latitude={bookSeller.coord.lat}
+                    longitude={bookSeller.coord.lon}
+                    closeButton={true}
+                    closeOnClick={false}
+                    onClose={() => togglePopup(false)}
+                  >
+                    <div>{bookSeller.address}</div>
+                  </Popup>
+                }
+              </ReactMapGL>
+            </Card>
+          )}
           <Column>
             <Row>
-              <InfosDetails name={'Nom'} value={bookSeller.name} />
-              <InfosDetails name={'Téléphone'} value={bookSeller.phone} />
-              <InfosDetails name={'Mail'} value={bookSeller.email} />
+              <InfosDetails name={'Nom'} value={bookSeller.name != undefined ? bookSeller.name : ''} />
+              <InfosDetails name={'Téléphone'} value={bookSeller.phone != undefined ? bookSeller.phone : ''} />
+              <InfosDetails name={'Mail'} value={bookSeller.email != undefined ? bookSeller.email : ''} />
             </Row>
             <Row style={{ marginTop: 10 }}>
               <Column style={{ marginRight: 10 }}>
@@ -113,27 +115,29 @@ const BookSellerDetails = ({ ...rest }) => {
                   className={classes.description}
                   aria-label="minimum height"
                   placeholder="Bio"
-                  value={bookSeller.bio}
+                  value={bookSeller.bio != undefined ? bookSeller.bio : ''}
                 />
               </Column>
             </Row>
           </Column>
         </Row>
         <Row>
-          <Card className={classes.openHours}>
-            <h2 style={{ marginLeft: 15, marginBottom: 15 }}>Horaires d'ouverture</h2>
-            {Object.entries(bookSeller.open_hour).map((day) => {
-              return (
-                <div style={{ marginLeft: 20 }}>
-                  <h4>{day[0]} : {day[1]}</h4>
-                </div>
-              )
-            })}
-          </Card>
+          {bookSeller.open_hour != undefined && (
+            <Card className={classes.openHours}>
+              <h2 style={{ marginLeft: 15, marginBottom: 15 }}>Horaires d'ouverture</h2>
+              {Object.entries(bookSeller.open_hour).map((day) => {
+                return (
+                  <div style={{ marginLeft: 20 }}>
+                    <h4>{day[0]} : {day[1]}</h4>
+                  </div>
+                )
+              })}
+            </Card>
+          )} 
           {
             sellerList.map((book) => {
               return (
-                <BookComponent img={book.picture} title={book.title}/>
+                <BookComponent img={book.picture} title={book.title} />
               )
             })
           }

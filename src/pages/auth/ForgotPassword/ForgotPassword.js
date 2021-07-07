@@ -7,12 +7,13 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { Column } from 'simple-flexbox';
+import { Column, Row } from 'simple-flexbox';
 import { useHistory } from 'react-router-dom';
 import { Box } from '@material-ui/core';
 import AppLogo from'../../../assets/png/BookApp_logo.png';
 import { forgotPassword } from '../../../services/firebase';
 import { useState } from 'react';
+import ROUTE from '../../../routes/RoutesNames';
 
 const useStyles = makeStyles((theme) => ({
   containers: {
@@ -51,6 +52,10 @@ export default function ForgotPassword() {
     history.goBack();
   };
 
+  function goToCGU() {
+    history.push(ROUTE.CGU)
+  }
+
   function sendNewPwd() {
     forgotPassword(email);
   };
@@ -67,7 +72,7 @@ export default function ForgotPassword() {
                 className={classes.logo}
             />
           </Box>
-          <Typography component="h1" variant="h5" color="#373a47">
+          <Typography component="h1" variant="h5">
             BookApp - Mot de passe oublié
           </Typography>
           <form className={classes.form} onSubmit={()=>sendNewPwd}>
@@ -88,16 +93,20 @@ export default function ForgotPassword() {
               type="submit"
               fullWidth
               variant="contained"
-              color="#373a47"
               className={classes.submit}
             >
               Envoyer
             </Button>
             <Grid container>
               <Grid container justify='center' direction='row' alignItems="center" item xs>
-                <Link onClick={goBack} variant="body2">
-                  Se Connecter ?
-                </Link>
+                <Row>
+                  <Link onClick={goBack} variant="body2">
+                    Se Connecter ?
+                  </Link>
+                  <Link style={{marginLeft:8}} onClick={goToCGU} variant="body2">
+                    Conditions d'utilisation
+                  </Link>
+                </Row>
               </Grid>
             </Grid>
           </form>

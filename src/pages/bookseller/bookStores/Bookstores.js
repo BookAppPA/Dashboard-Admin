@@ -100,9 +100,10 @@ const Bookstores = ({ ...rest }) => {
   const options = {
     filterType: 'checkbox',
     selectableRowsHeader: false,
-    selectableRowsHideCheckboxes: false,
+    selectableRowsHideCheckboxes: true,
     selectableRowsOnClick: false,
     onRowClick: redirectTo,
+    print: false,
   };
 
   useEffect(() => {

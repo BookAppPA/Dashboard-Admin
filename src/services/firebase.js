@@ -25,8 +25,8 @@ export const forgotPassword = (email) => {
   firebaseConfig.auth().sendPasswordResetEmail(email)
       .then(() => {
           alert('Veuillez vérifier votre boîte mail.');
-      }).catch((e) => {
-          console.log(e)
+      }).catch((err) => {
+          console.log(err)
       }) 
-  }
+}
   

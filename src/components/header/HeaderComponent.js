@@ -82,6 +82,9 @@ function HeaderComponent() {
         case currentItem === ROUTE.COMMENTS:
             title = 'Commentaires';
             break;
+        case currentItem === ROUTE.COMMENTS_DETAILS:
+            title = "Commentaire(s) d'un livre"
+            break;
         case currentItem === ROUTE.SETTINGS:
             title = 'Paramètres';
             break;
@@ -99,7 +102,6 @@ function HeaderComponent() {
     }
 
     function logout() {
-        console.log("Route")
         firebaseConfig
         .auth()
         .signOut()

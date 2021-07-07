@@ -8,7 +8,8 @@ const Users = lazy(() => import('../../pages/user/usersList/'));
 const UserDetails = lazy(() => import('../../pages/user/userDetails/'));
 const Bookstores = lazy(() => import('../../pages/bookseller/bookStores/'));
 const BookSellerDetail = lazy(() => import('../../pages/bookseller/bookSellerDetail'));
-const Comments = lazy(() => import('../../pages/comments/Comments'));
+const Comments = lazy(() => import('../../pages/comments/commentsList'));
+const CommentsDetail = lazy(() => import('../../pages/comments/commentsDetail'));
 const Settings = lazy(() => import('../../pages/settings/Settings'));
 
 function PrivateRoutes() {
@@ -21,6 +22,7 @@ function PrivateRoutes() {
                 <Route exact path={ROUTE.BOOKSTORES} component={Bookstores} />
                 <Route exact path={ROUTE.BOOKSELLER_DETAIL} component={BookSellerDetail} />
                 <Route exact path={ROUTE.COMMENTS} component={Comments} />
+                <Route exact path={ROUTE.COMMENTS_DETAILS} component={CommentsDetail} />
                 <Route exact path={ROUTE.SETTINGS} component={Settings} />
                 <Redirect to={ROUTE.DASHBOARD_OVERVIEW}/>
             </Switch>

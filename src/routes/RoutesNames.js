@@ -14,6 +14,7 @@ export default {
     USERS_DETAILS: "/user_detail",
     
     COMMENTS: "/comments",
+    COMMENTS_DETAILS: "/comments_by_book",
 
     //Booksellers
     BOOKSTORES:"/bookstores",

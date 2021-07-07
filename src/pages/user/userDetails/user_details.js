@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { createUseStyles, useTheme } from 'react-jss';
 import { useLocation, useHistory } from 'react-router-dom';
 import { Column, Row } from 'simple-flexbox';
@@ -20,6 +20,8 @@ import axios from 'axios';
 import InfosDetails from '../../../components/infosDetails/';
 import ImageNotFound from '../../../assets/png/imagenotfound.png';
 import BookComponent from '../../../components/bookComponent';
+import RoutesNames from '../../../routes/RoutesNames';
+import { dbUsers } from '../../../services/firebase';
 
 const useStyles = createUseStyles((theme) => ({
   tableContainer: {
@@ -63,7 +65,7 @@ const UsersDetails = ({ ...rest }) => {
   const theme = useTheme();
   const classes = useStyles({ theme });
 
-  const { push } = useHistory();
+  const { push, goBack } = useHistory();
   const { token } = useContext(AuthContext)
 
   const dispatch = useDispatch();
@@ -72,28 +74,21 @@ const UsersDetails = ({ ...rest }) => {
   const commentsById = useSelector((state) => state.listCommentsByUser);
   const listBooks = useSelector((state) => state.userListBooks);
   const list = ""
+  const [isBlock, setIsBlock] = useState(false);
+  const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
-    console.log('user', user);
-    console.log('commentbyId', commentsById);
-
-    console.log('List', listBooks);
     var list = ""
     listBooks.forEach((book) => {
       list += (book.id + "/");
     });
     list = list.substring(0, list.length - 1);
-    console.log('STRING LIST', list);
-    console.log('USER ID IN DETAILS', user.uid);
     dispatch(getCommentsByUser(apiURL + `rating/userListRatings`, token, user.uid, list));
     getBooksInfos();
-    return () => {
-      dispatch(resetState());
-    }
-  }, [])
+    setIsBlock(user.isBlocked);
+  }, [refresh])
 
   const getBooksInfos = async () => {
-    console.log('test book info');
     var array = [];
     listBooks.forEach((book) => {
       axios.get(apiURL + `book/bookDetail/${book.id}`, {
@@ -110,6 +105,13 @@ const UsersDetails = ({ ...rest }) => {
     })
   }
 
+  const blockUnBlockUser = async (userID, isBlock, name) => {
+      await dbUsers.collection('users').doc(userID).update("isBlocked", isBlock);
+      alert('Votre action à bien été prise en compte !')
+      goBack()
+      setRefresh(!refresh);
+  }
+
   return (
     <div>
       <Column>
@@ -121,7 +123,7 @@ const UsersDetails = ({ ...rest }) => {
             />
             <CardActions className={classes.backgroundActions}>
               <div className={classes.chip}>
-                {user.isBlocked ?
+                {isBlock ?
                   <Chip label="Bloqué" color="secondary" />
                   :
                   <Chip label="Autorisé" color="primary" />
@@ -148,26 +150,42 @@ const UsersDetails = ({ ...rest }) => {
         </Row>
         <Box className={classes.button}>
           <Button
-            color={user.isBlocked ? "secondary" : "primary"}
+            color={isBlock ? "secondary" : "primary"}
             variant="contained"
+            onClick={() => blockUnBlockUser(user.uid, !isBlock, user.pseudo)}
           >
-            {user.isBlocked ? "Débloquer" : "Bloquer"}
+            {isBlock ? "Débloquer" : "Bloquer"}
           </Button>
         </Box>
       </Column>
-      <CommentsSection comments={commentsById} />
-      <Column>
-        <h3>Ses derniers livres</h3>
-        <Row>
-          {listBooks.map((book) => {
-            return (
-              <div style={{ marginTop: 20, display: 'flex', flexDirection: 'column' }}>
-                <BookComponent img={book.volumeInfo.imageLinks.medium ? book.volumeInfo.imageLinks.medium : book.volumeInfo.imageLinks.smallThumbnail} title={book.volumeInfo.title} />
-              </div>
-            )
-          })}
-        </Row>
-      </Column>
+      {user.nbRatings != undefined ?
+        <div>
+          <CommentsSection nbRatings={user.nbRatings} comments={commentsById} />
+          <Column>
+            <h2>Ses derniers livres</h2>
+            <Row>
+              {listBooks.map((book) => {
+                return (
+                  <div style={{ marginTop: 20, display: 'flex', flexDirection: 'column' }}>
+                    <BookComponent img={book.volumeInfo.imageLinks.medium ? book.volumeInfo.imageLinks.small : book.volumeInfo.imageLinks.smallThumbnail} title={book.volumeInfo.title} />
+                  </div>
+                )
+              })}
+            </Row>
+          </Column>
+        </div>
+        : user.nbRatings === '0' ?
+          <div>
+            <Column>
+              <h2>Ses derniers avis</h2>
+            </Column>
+            <Column>
+              <h2>Ses derniers livres</h2>
+            </Column>
+          </div>
+          :
+          null
+      }
     </div>
   );
 };

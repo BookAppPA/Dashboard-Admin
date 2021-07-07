@@ -6,8 +6,10 @@ const reducers = (
         userById: [],
         listCommentsByUser: [],
         listCommentsByBookId: [],
+        oneBookComments: [],
         userListBooks: [],
         sellerBookList: [],
+        allBooksInApp: [],
     },
     action,
 ) => {
@@ -37,22 +39,20 @@ const reducers = (
             };
         }
         case 'GET_COMMENTS_BY_USER': {
-            console.log('action.payload', action.payload)
             return {
                 ...state,
                 listCommentsByUser: action.payload
             }
         }
         case 'GET_COMMENTS_BY_BOOK_ID': {
-            const array = action.payload;
+            const res = action.payload;
             const previous = [...state.listCommentsByBookId];
-            var newArray = previous.concat(array);
-            var unique = [...new Set(newArray)];
-            var filter = unique.filter(value => Object.keys(value).length !== 0);
-
+            var newArray = previous.concat(res);
+            newArray = [...new Set([...previous, {...res}])];
+            const filter = previous.filter(val => !newArray.includes(val));
             return {
                 ...state,
-                listCommentsByBookId: filter,
+                listCommentsByBookId: newArray,
             }
         }
         case 'GET_USER_LIST_BOOKS': {
@@ -71,6 +71,18 @@ const reducers = (
             return {
                 ...state,
                 sellerBookList: action.payload,
+            }
+        }
+        case 'GET_ALL_BOOKS_IN_APP': {
+            return {
+                ...state,
+                allBooksInApp: action.payload,
+            }
+        }
+        case 'GET_ONE_BOOK_COMMENTS': {
+            return {
+                ...state,
+                oneBookComments: action.payload
             }
         }
     }

@@ -49,7 +49,6 @@ export default function SignIn() {
   const { push } = useHistory();
 
   function forgotPassword() {
-    console.log("Test forgot");
     push(ROUTE.FORGOT_PASSWORD)
 }
 
@@ -73,7 +72,7 @@ function logIn() {
                 className={classes.logo}
             />
           </Box>
-          <Typography component="h1" variant="h5" color="#373a47">
+          <Typography component="h1" variant="h5">
             BookApp
           </Typography>
           <form className={classes.form} onSubmit={logIn}>
@@ -107,7 +106,6 @@ function logIn() {
               type="submit"
               fullWidth
               variant="contained"
-              color="#373a47"
               className={classes.submit}
             >
               Se connecter
@@ -118,7 +116,7 @@ function logIn() {
                   <Link onClick={forgotPassword} variant="body2">
                     Mot de passe oublié ?
                   </Link>
-                  <Link onClick={goToCGU} variant="body2">
+                  <Link style={{marginLeft:8}} onClick={goToCGU} variant="body2">
                     Conditions d'utilisation
                   </Link>
                 </Row>

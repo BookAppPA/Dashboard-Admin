@@ -11,7 +11,8 @@ const color = {
     paleBlue: '#DDE2FF',
     paleBlueTransparent: 'rgba(221, 226, 255, 0.08)',
     veryDarkGrayishBlue: '#373a47',
-    light: '#ECECE5'
+    light: '#ECECE5',
+    graph: "#d4b9b9"
 };
 
 const typography = {

@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import { Column, Row } from 'simple-flexbox';
 import { createUseStyles } from 'react-jss';
 import CardComponent from '../../components/card/CardComponent';
@@ -8,6 +8,15 @@ import { AuthContext } from '../../context/Auth';
 import { apiURL } from '../../utils/constants';
 import { useHistory } from 'react-router-dom';
 import ROUTES from '../../routes/RoutesNames';
+import Graph from '../../components/graphs'
+import {
+    useAnalyticsApi,
+    useAuthorize,
+    useDataChart,
+    useSignOut,
+    useViewSelector,
+} from "react-use-analytics-api";
+import { dbUsers } from '../../services/firebase';
 
 const useStyles = createUseStyles({
     cardsContainer: {
@@ -53,8 +62,9 @@ function DashboardOverview() {
     const classes = useStyles();
     const dispatch = useDispatch();
     const { token } = useContext(AuthContext);
-    console.log('token', token);
     const { push } = useHistory();
+    const { viewId } = useAnalyticsApi();
+    const [stats,setStats]=useState([])
 
     const allUsers = useSelector((state) => state.allUsers);
     const allBookSellers = useSelector((state) => state.allBookSellers)
@@ -72,6 +82,15 @@ function DashboardOverview() {
         push(ROUTES.COMMENTS);
     };
 
+    const fetchStats = async () => {
+        const response = await dbUsers.collection('statistic').doc("stats").get();
+        setStats(response.data())
+    }
+
+    useEffect(() => {
+        fetchStats();
+    }, [])
+
     return (
         <Column>
             <Row
@@ -84,29 +103,23 @@ function DashboardOverview() {
                     className={classes.cardRow}
                     wrap
                     flexGrow={1}
-                    horizontal='space-between'
                 >
                     <CardComponent
                         className={classes.miniCardContainer}
                         title='Utilisateurs'
-                        value={allUsers.length}
+                        value={stats.nb_users}
                         onClick={goToUsers}
                     />
                     <CardComponent
                         className={classes.miniCardContainer}
                         title='Librairies'
-                        value={allBookSellers.length}
+                        value={stats.nb_bookseller}
                         onClick={goToBookSellers}
 
                     />
-                    <CardComponent
-                        className={classes.miniCardContainer}
-                        title='Livres'
-                        value='43'
-                        onClick={goToRatings}
-                    />
                 </Row>
             </Row>
+            <Graph />
         </Column>
     );
 }

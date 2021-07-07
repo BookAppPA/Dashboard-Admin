@@ -39,7 +39,7 @@ const columns = [
           <img
             src={value}
             alt='avatar'
-            style={{ width: 80, height: 80 }} />
+            style={{ width: 90, height: 90, objectFit:'contain' }} />
           :
           <img
             src={imageNotFound}
@@ -111,8 +111,6 @@ const Users = ({ ...rest }) => {
   const allUsers = useSelector((state) => state.allUsers);
 
   const redirectTo = async (rowData) => {
-
-    console.log('USER ID', rowData[6]);
     await dispatch(getUserById(apiURL + `user/getUserById/${rowData[6]}`, token));
     await dispatch(getUserListBooks(apiURL + `book/userListBooks/${rowData[6]}`, token));
 
@@ -125,17 +123,15 @@ const Users = ({ ...rest }) => {
   const options = {
     filterType: 'checkbox',
     selectableRowsHeader: false,
-    selectableRowsHideCheckboxes: false,
+    selectableRowsHideCheckboxes: true,
     selectableRowsOnClick: false,
     onRowClick: redirectTo,
+    print: false,
   };
 
   useEffect(() => {
-    if (allUsers.length == 0) {
       dispatch(getAllUsers(apiURL + 'user/getAllUsers', token))
-    }
-    console.log('ALL USERS', allUsers);
-  }, [token])
+  }, [])
 
   return (
     <Box className={classes.tableContainer} sx={{ minWidth: 1050 }}>
