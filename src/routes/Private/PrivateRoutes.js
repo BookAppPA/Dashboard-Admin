@@ -24,7 +24,7 @@ function PrivateRoutes() {
                 <Route exact path={ROUTE.COMMENTS} component={Comments} />
                 <Route exact path={ROUTE.COMMENTS_DETAILS} component={CommentsDetail} />
                 <Route exact path={ROUTE.SETTINGS} component={Settings} />
-                <Redirect to={ROUTE.DASHBOARD_OVERVIEW}/>
+                <Redirect to={ROUTE.DASHBOARD_OVERVIEW} />
             </Switch>
         </Suspense>
     );

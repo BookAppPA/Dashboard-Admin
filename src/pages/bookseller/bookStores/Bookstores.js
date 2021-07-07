@@ -1,13 +1,12 @@
-import { useState, useContext, useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { createUseStyles, useTheme } from 'react-jss';
-import { Box, Card } from '@material-ui/core';
+import { Box } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllBookSellers, getSellerList, getUserById } from '../../../redux/actions';
 import { AuthContext } from '../../../context/Auth';
 import { apiURL } from '../../../utils/constants';
 import MUIDataTable from "mui-datatables";
 import { useHistory } from 'react-router-dom';
-import Chip from '@material-ui/core/Chip';
 import ROUTE from '../../../routes/RoutesNames';
 
 

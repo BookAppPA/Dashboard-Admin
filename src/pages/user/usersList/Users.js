@@ -1,6 +1,6 @@
-import { useState, useEffect, useContext } from 'react';
+import { useEffect, useContext } from 'react';
 import { createUseStyles, useTheme } from 'react-jss';
-import { Box, Card } from '@material-ui/core';
+import { Box } from '@material-ui/core';
 import MUIDataTable from "mui-datatables";
 import { useHistory } from 'react-router-dom';
 import ROUTE from '../../../routes/RoutesNames';
@@ -39,7 +39,7 @@ const columns = [
           <img
             src={value}
             alt='avatar'
-            style={{ width: 90, height: 90, objectFit:'contain' }} />
+            style={{ width: 90, height: 90, objectFit: 'contain' }} />
           :
           <img
             src={imageNotFound}
@@ -130,7 +130,7 @@ const Users = ({ ...rest }) => {
   };
 
   useEffect(() => {
-      dispatch(getAllUsers(apiURL + 'user/getAllUsers', token))
+    dispatch(getAllUsers(apiURL + 'user/getAllUsers', token))
   }, [])
 
   return (

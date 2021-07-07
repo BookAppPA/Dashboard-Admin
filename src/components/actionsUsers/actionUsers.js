@@ -27,26 +27,26 @@ const ActionsUsers = ({
     return (
         <ThemeProvider theme={theme}>
             <Row flexGrow={1} horizontal='center' vertical='center'>
-            {!comments && (
-                <IconButton
-                    aria-label="accept"
-                    color="primary"
-                    onClick={user ? onClickCheckUser : onClickDelete}
-                >
-                    {user ?
-                        <Check />
-                        :
-                        <Edit />
-                    }
-                </IconButton>
-            )}
+                {!comments && (
                     <IconButton
-                        aria-label="block"
-                        color="secondary"
-                        onClick={user ? onClickBlockUser : onClickDelete}
+                        aria-label="accept"
+                        color="primary"
+                        onClick={user ? onClickCheckUser : onClickDelete}
                     >
-                        <Block />
+                        {user ?
+                            <Check />
+                            :
+                            <Edit />
+                        }
                     </IconButton>
+                )}
+                <IconButton
+                    aria-label="block"
+                    color="secondary"
+                    onClick={user ? onClickBlockUser : onClickDelete}
+                >
+                    <Block />
+                </IconButton>
             </Row>
         </ThemeProvider>
     );

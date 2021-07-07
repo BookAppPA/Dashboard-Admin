@@ -6,7 +6,7 @@ import { createUseStyles, useTheme } from 'react-jss';
 import { SidebarContext } from '../../hooks/useSidebar';
 import ROUTE from '../../routes/RoutesNames';
 import DropdownComponent from '../dropdown/DropdownComponent';
-import adminLogo from'../../assets/png/admin.png';
+import adminLogo from '../../assets/png/admin.png';
 import firebaseConfig from "../../services/firebaseConfig";
 
 const useStyles = createUseStyles((theme) => ({
@@ -90,7 +90,7 @@ function HeaderComponent() {
             break;
         case currentItem === ROUTE.USERS_DETAILS:
             title = "Détails d'un utilisateur";
-        break;
+            break;
         case currentItem === ROUTE.BOOKSELLER_DETAIL:
             title = "Détails d'un Libraire"
         default:
@@ -103,11 +103,11 @@ function HeaderComponent() {
 
     function logout() {
         firebaseConfig
-        .auth()
-        .signOut()
-        .then(res => {
-           push(ROUTE.LOGIN);
-         })
+            .auth()
+            .signOut()
+            .then(res => {
+                push(ROUTE.LOGIN);
+            })
         push(ROUTE.LOGIN)
     }
 

@@ -48,7 +48,7 @@ const reducers = (
             const res = action.payload;
             const previous = [...state.listCommentsByBookId];
             var newArray = previous.concat(res);
-            newArray = [...new Set([...previous, {...res}])];
+            newArray = [...new Set([...previous, { ...res }])];
             const filter = previous.filter(val => !newArray.includes(val));
             return {
                 ...state,

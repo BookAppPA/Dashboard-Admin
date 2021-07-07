@@ -3,12 +3,9 @@ import * as React from "react";
 import {
     useAnalyticsApi,
     useAuthorize,
-    useDataChart,
-    useSignOut,
     useViewSelector,
 } from "react-use-analytics-api";
 import { ActiveUsersChart, SessionsByDateChart, SessionsByUserTypeChart, GeoChart } from "react-analytics-charts";
-import LoadingComponent from "../loading";
 import { Row } from "simple-flexbox";
 import theme from "../../utils/theme";
 
@@ -42,7 +39,7 @@ export default function Graph() {
                     {authorized != undefined || authorized ? (
                         <div>
                             <Row style={{ marginTop: "15px" }}>
-                                <div style={{display: 'none'}} id={viewSelectorContainerId} />
+                                <div style={{ display: 'none' }} id={viewSelectorContainerId} />
                             </Row>
                             <div style={{ marginTop: "30px" }}>
                                 <div style={{ display: 'flex', flex: 1, flexWrap: 'wrap' }} className="data-chart" id="data-chart-container">
@@ -56,7 +53,7 @@ export default function Graph() {
                                                 backgroundColor: theme.color.grayishBlue3,
                                                 marginLeft: 10,
                                                 colors: [theme.color.darkRed],
-                                                title:"Utilisateur(s) actifs les 7 derniers jours",
+                                                title: "Utilisateur(s) actifs les 7 derniers jours",
                                             }}
                                         />
                                     </Box>
@@ -69,7 +66,7 @@ export default function Graph() {
                                                 backgroundColor: theme.color.grayishBlue3,
                                                 marginLeft: 10,
                                                 colors: [theme.color.darkRed],
-                                                title:"Session(s) actives les 28 derniers jours",
+                                                title: "Session(s) actives les 28 derniers jours",
                                             }}
                                         />
                                     </Box>
@@ -80,7 +77,7 @@ export default function Graph() {
                                             days={28}
                                             options={{
                                                 backgroundColor: theme.color.grayishBlue3,
-                                                title:"Session(s) par OS",
+                                                title: "Session(s) par OS",
                                             }}
                                         />
                                     </Box>
@@ -91,8 +88,8 @@ export default function Graph() {
                                                 region: "FR",
                                                 resolution: "countries",
                                                 backgroundColor: theme.color.grayishBlue3,
-                                                title:"Session(s) en Europe",
-                                                
+                                                title: "Session(s) en Europe",
+
                                             }}
                                             query={{
                                                 metrics: "ga:sessions",
@@ -107,7 +104,7 @@ export default function Graph() {
                                 </div>
                             </div>
                         </div>
-                    ): null} 
+                    ) : null}
                     {!authorized && (
                         <div>
                             <div ref={authDiv} id="authorize-container-id"></div>

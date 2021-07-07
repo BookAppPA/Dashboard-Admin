@@ -34,7 +34,7 @@ const columns = [
     name: "id",
     label: "id",
     options: {
-      display:false,
+      display: false,
     }
   },
   {
@@ -98,7 +98,7 @@ const Comments = ({ ...rest }) => {
   const allBooksInApp = useSelector(state => state.allBooksInApp);
 
   const redirectTo = (rowData) => {
-    dispatch(getOneBookComment(apiURL + `rating/ratingByBook/${rowData[0]}`, token ));
+    dispatch(getOneBookComment(apiURL + `rating/ratingByBook/${rowData[0]}`, token));
     push({
       pathname: ROUTE.COMMENTS_DETAILS,
       bookId: rowData[0],
@@ -117,10 +117,10 @@ const Comments = ({ ...rest }) => {
 
   const getAllComments = async () => {
     await dispatch(getAllBooksInApp(apiURL + 'book/getAllBooks'));
-    for(var bookId in allBooksInApp){
-      dispatch(getCommentsByBookId(apiURL + `rating/ratingByBook/${allBooksInApp[bookId]}`, token ));
+    for (var bookId in allBooksInApp) {
+      dispatch(getCommentsByBookId(apiURL + `rating/ratingByBook/${allBooksInApp[bookId]}`, token));
     }
-    
+
   }
 
   useEffect(async () => {

@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useState} from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import {
     Divider,
     Avatar,
@@ -10,11 +10,11 @@ import { createUseStyles } from 'react-jss';
 import { Row } from 'simple-flexbox';
 import ActionsUsers from '../../components/actionsUsers/actionUsers';
 import { deleteCommentById, getUserById } from '../../redux/actions';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { AuthContext } from '../../context/Auth';
 import { apiURL } from '../../utils/constants';
 import ROUTES from '../../routes/RoutesNames';
-import { useLocation, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = createUseStyles({
     container: {
@@ -27,24 +27,23 @@ const CommentsSection = ({
     listComments = false,
     nbRatings,
 }) => {
-    const classes = useStyles();
     const dispatch = useDispatch();
     const { token } = useContext(AuthContext)
     const { replace } = useHistory();
     const [refresh, setRefresh] = useState(false);
 
-    function deleteRating(bookID, userID, token){
+    function deleteRating(bookID, userID, token) {
         dispatch(deleteCommentById(apiURL + `rating/deleteRating/${bookID}`, userID, token))
         setRefresh(!refresh);
-    } 
+    }
 
-    async function goToUserDetails(userID){
+    async function goToUserDetails(userID) {
         dispatch(getUserById(apiURL + `user/getUserById/${userID}`, token));
         replace(ROUTES.USERS_DETAILS)
     }
 
-    useEffect(()=> {
-        if(comments == undefined){
+    useEffect(() => {
+        if (comments == undefined) {
             replace(ROUTES.DASHBOARD_OVERVIEW);
             alert("Oups, veuillez réessayer d'ici peu");
         }
@@ -52,18 +51,18 @@ const CommentsSection = ({
 
     return (
         <div>
-            {!listComments && 
-            <h2>Ses derniers avis</h2>
+            {!listComments &&
+                <h2>Ses derniers avis</h2>
             }
-                {comments != undefined &&
-                    <Paper style={{ padding: "40px 20px" }}>
-                        {comments.map((comment) => (
-                            <div>
-                                <Row>
+            {comments != undefined &&
+                <Paper style={{ padding: "40px 20px" }}>
+                    {comments.map((comment) => (
+                        <div>
+                            <Row>
                                 <Grid container wrap="nowrap" spacing={2}>
                                     <Grid item>
                                         <div onClick={() => goToUserDetails(comment.user_id)}>
-                                            <Avatar style={{width: 100, height:100}} alt="Remy Sharp" src={comment.user_pic} />
+                                            <Avatar style={{ width: 100, height: 100 }} alt="Remy Sharp" src={comment.user_pic} />
                                         </div>
                                     </Grid>
                                     <Grid justifyContent="left" item xs zeroMinWidth>
@@ -72,9 +71,6 @@ const CommentsSection = ({
                                         <p style={{ textAlign: "left", margin: 20 }}>
                                             {comment.message}
                                         </p>
-                                        {/* <p style={{ textAlign: "left", color: "gray" }}>
-                                            {comment.timestamp}
-                                        </p> */}
                                     </Grid>
                                     <img
                                         src={comment.book_pic}
@@ -82,13 +78,13 @@ const CommentsSection = ({
                                     />
                                 </Grid>
                                 <ActionsUsers comments={true} onClickDelete={() => deleteRating(comment.book_id, comment.user_id, token)} />
-                                </Row>
-                                <Rating name="read-only" value={comment.note} readOnly />
-                                <Divider variant="fullWidth" style={{ margin: "30px 0" }} />
-                            </div>
-                        ))}
-                    </Paper>
-                }
+                            </Row>
+                            <Rating name="read-only" value={comment.note} readOnly />
+                            <Divider variant="fullWidth" style={{ margin: "30px 0" }} />
+                        </div>
+                    ))}
+                </Paper>
+            }
         </div>
     );
 }

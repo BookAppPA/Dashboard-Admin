@@ -43,7 +43,6 @@ const useStyles = makeStyles((theme) => ({
 export default function SignIn() {
   const [email, setEmail] = useState('');
   const [pwd, setPwd] = useState('');
-  const { currentUser } = useContext(AuthContext);
 
   const classes = useStyles();
   const { push } = useHistory();

@@ -9,8 +9,6 @@ import { apiURL } from './utils/constants';
 function App() {
   const { currentUser, token } = useContext(AuthContext);
   const dispatch = useDispatch();
-  const allusersId = useSelector(state => state.allUsers)
-  const listBooks = useSelector(state => state.userListBooks)
 
   const getData = async () => {
     dispatch(getAllUsers(apiURL + 'user/getAllUsers', token));

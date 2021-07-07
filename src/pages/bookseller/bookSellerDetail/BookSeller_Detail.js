@@ -133,7 +133,7 @@ const BookSellerDetails = ({ ...rest }) => {
                 )
               })}
             </Card>
-          )} 
+          )}
           {
             sellerList.map((book) => {
               return (

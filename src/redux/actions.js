@@ -3,7 +3,7 @@ import apiURL, { baseUrlGoogleBooksAPI } from '../utils/constants';
 
 export function setisFetching(trueOrFalse) {
   return function (dispatch) {
-    return dispatch({ type: 'SET_IS_FETCHING', payload: trueOrFalse})
+    return dispatch({ type: 'SET_IS_FETCHING', payload: trueOrFalse })
   }
 }
 
@@ -150,14 +150,14 @@ export function deleteCommentById(url, uid, token) {
       await axios({
         method: 'post',
         url: url,
-        data:{
+        data: {
           uid: uid,
         },
-        headers: {'Authorization': `Bearer ${token}`},
-      }).then((res)=>{
-        dispatch({type: 'DELETE_COMMENTS_BY_ID', payload: res.data})
+        headers: { 'Authorization': `Bearer ${token}` },
+      }).then((res) => {
+        dispatch({ type: 'DELETE_COMMENTS_BY_ID', payload: res.data })
       });
-    } catch(err) {
+    } catch (err) {
       console.log(err);
     }
   };

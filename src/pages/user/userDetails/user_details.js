@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { createUseStyles, useTheme } from 'react-jss';
-import { useLocation, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { Column, Row } from 'simple-flexbox';
 import {
   Chip,
@@ -12,7 +12,7 @@ import {
   CardActions
 } from '@material-ui/core';
 import CommentsSection from '../../../components/comments-section';
-import { getCommentsByUser, resetState } from '../../../redux/actions';
+import { getCommentsByUser } from '../../../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { AuthContext } from '../../../context/Auth';
 import { apiURL } from '../../../utils/constants';
@@ -20,7 +20,6 @@ import axios from 'axios';
 import InfosDetails from '../../../components/infosDetails/';
 import ImageNotFound from '../../../assets/png/imagenotfound.png';
 import BookComponent from '../../../components/bookComponent';
-import RoutesNames from '../../../routes/RoutesNames';
 import { dbUsers } from '../../../services/firebase';
 
 const useStyles = createUseStyles((theme) => ({
@@ -65,7 +64,7 @@ const UsersDetails = ({ ...rest }) => {
   const theme = useTheme();
   const classes = useStyles({ theme });
 
-  const { push, goBack } = useHistory();
+  const { goBack } = useHistory();
   const { token } = useContext(AuthContext)
 
   const dispatch = useDispatch();
@@ -73,7 +72,6 @@ const UsersDetails = ({ ...rest }) => {
   const user = useSelector((state) => state.userById);
   const commentsById = useSelector((state) => state.listCommentsByUser);
   const listBooks = useSelector((state) => state.userListBooks);
-  const list = ""
   const [isBlock, setIsBlock] = useState(false);
   const [refresh, setRefresh] = useState(false);
 
@@ -106,10 +104,10 @@ const UsersDetails = ({ ...rest }) => {
   }
 
   const blockUnBlockUser = async (userID, isBlock, name) => {
-      await dbUsers.collection('users').doc(userID).update("isBlocked", isBlock);
-      alert('Votre action à bien été prise en compte !')
-      goBack()
-      setRefresh(!refresh);
+    await dbUsers.collection('users').doc(userID).update("isBlocked", isBlock);
+    alert('Votre action à bien été prise en compte !')
+    goBack()
+    setRefresh(!refresh);
   }
 
   return (

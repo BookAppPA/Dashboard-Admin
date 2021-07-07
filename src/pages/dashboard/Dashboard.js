@@ -1,21 +1,10 @@
-import React, { useEffect, useContext, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Column, Row } from 'simple-flexbox';
 import { createUseStyles } from 'react-jss';
 import CardComponent from '../../components/card/CardComponent';
-import { useSelector, useDispatch } from 'react-redux';
-import { getAllUsers, getUserById } from '../../redux/actions';
-import { AuthContext } from '../../context/Auth';
-import { apiURL } from '../../utils/constants';
 import { useHistory } from 'react-router-dom';
 import ROUTES from '../../routes/RoutesNames';
 import Graph from '../../components/graphs'
-import {
-    useAnalyticsApi,
-    useAuthorize,
-    useDataChart,
-    useSignOut,
-    useViewSelector,
-} from "react-use-analytics-api";
 import { dbUsers } from '../../services/firebase';
 
 const useStyles = createUseStyles({
@@ -60,14 +49,8 @@ const useStyles = createUseStyles({
 function DashboardOverview() {
 
     const classes = useStyles();
-    const dispatch = useDispatch();
-    const { token } = useContext(AuthContext);
     const { push } = useHistory();
-    const { viewId } = useAnalyticsApi();
-    const [stats,setStats]=useState([])
-
-    const allUsers = useSelector((state) => state.allUsers);
-    const allBookSellers = useSelector((state) => state.allBookSellers)
+    const [stats, setStats] = useState([])
 
 
     function goToUsers() {
