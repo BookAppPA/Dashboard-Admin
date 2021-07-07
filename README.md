@@ -60,9 +60,9 @@
 
 ## About The Project
 
-[![Home Screen Shot][home-screenshot]]
+![Home Screen Shot][home-screenshot]
 
-[![Comments screenshot][comments-screenshot]]
+![Comments screenshot][comments-screenshot]
 
 
 
