@@ -3,17 +3,11 @@ import { createUseStyles, useTheme } from 'react-jss';
 import { useLocation, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { AuthContext } from '../../../context/Auth';
-import ReactMapGL, { Marker, Popup } from 'react-map-gl';
+// eslint-disable-next-line
+import ReactMapGL, { Marker, Popup } from '!react-map-gl';
 import { Column, Row } from 'simple-flexbox';
 import GeoIcon from '@material-ui/icons/Room';
-import {
-  TextareaAutosize,
-  Card,
-  CardMedia,
-  CardContent,
-  Typography
-} from '@material-ui/core';
-import Imagenotfound from '../../../assets/png/imagenotfound.png';
+import { TextareaAutosize, Card } from '@material-ui/core';
 import InfosDetails from '../../../components/infosDetails';
 import BookComponent from '../../../components/bookComponent';
 
