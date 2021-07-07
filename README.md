@@ -1,70 +1,180 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+ [![Contributors][contributors-shield]][contributors-url]
+[![Forks][esgi-shield]][esgi-url]
+[![LinkedIn][linkedin-shield-victor]][linkedin-url-victor]
+[![LinkedIn][linkedin-shield-elisa]][linkedin-url-elisa]
+[![LinkedIn][linkedin-shield-taj]][linkedin-url-taj]
+[![PlayStore][android-shield]][android-url]
+[![AppStore][ios-shield]][ios-url]
 
-In the project directory, you can run:
+<br />
 
-### `yarn start`
+<p align="center">
+  <a href="https://github.com/BookAppPA">
+    <img src="https://github.com/BookAppPA/MobileApp/blob/main/assets/logo.png?raw=true" alt="Logo" width="200" height="200">
+  </a>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+  <h3 align="center">BookWorm Flutter</h3>
 
-### `yarn test`
+  <p align="center">
+    An Awesome Book Social Media made in Flutter!
+    <br />
+    <a href="https://github.com/BookAppPA/API/blob/master/README.md"><strong>Explore the docs »</strong></a>
+    <br />
+    <br />
+    ·
+    <a href="https://github.com/BookAppPA/API/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/BookAppPA/API/issues">Request Feature</a>
+    ·
+  </p>
+</p>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `yarn build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#installation">Installation</a></li>
+      </ul>
+    </li>
+    <li><a href="#usage">Usage</a></li>
+    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#license">License</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#acknowledgements">Acknowledgements</a></li>
+  </ol>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## About The Project
 
-### `yarn eject`
+[![Home Screen Shot][home-screenshot]]
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+[![Comments screenshot][comments-screenshot]]
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+BookWorm is a mobile application available on Android and IOS that lives up to its name because it is intended for book lovers. The objective of this application is simple, to help you find your future favorite book. To do this, you will get advice from passionate booksellers and recommendations made by an algorithm that learns from your previous readings / reviews that you have completed on the application. But that's not all, you can follow readers who love the same literary genre (or not for that matter...) and have access to their library and their opinion on each book. You can feed your profile with your readings and the comments you want to send to people following your profile.
 
-## Learn More
+### Built With
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+* [ReactJs](https://fr.reactjs.org/)
+* [Firebase](https://firebase.google.com/)
+* [NodeJS](https://nodejs.org/en/)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Getting Started
 
-### Code Splitting
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+To get a local copy up and running follow these simple example steps.
 
-### Analyzing the Bundle Size
+```sh
+git clone git@github.com:BookAppPA/Dashboard-Admin.git
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```sh
+cd Dashboard-Admin
+```
 
-### Making a Progressive Web App
+```sh
+yarn install || npm install
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
 
-### Advanced Configuration
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### Installation
 
-### Deployment
+1. Create a new file named `.env` which will store your privates API Keys like Firebase, MapGL or Analytics. 
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+2. Inside `.env`name each variable like this : 
 
-### `yarn build` fails to minify
+3. Go to https://www.mapbox.com/ and create an account in order to retrieve an APIKey. Same go to https://developers.google.com/analytics/devguides/reporting/core/v4/quickstart/web-js and follow the first step to get your google analytics APIKey.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+4. ```js 
+   REACT_APP_FIREBASE_API_KEY = "xxxxxxxxxxxxxx"
+   REACT_APP_FIREBASE_AUTH_DOMAIN = "xxxxxxxxxxxxxx"
+   REACT_APP_FIREBASE_PROJECT_ID = "xxxxxxxxxxxxxx"
+   REACT_APP_FIREBASE_STORAGE_BUCKET = "xxxxxxxxxxxxxx"
+   REACT_APP_FIREBASE_MESSAGING_SENDER_ID = "xxxxxxxxxxxxxx"
+   REACT_APP_FIREBASE_APP_ID = "xxxxxxxxxxxxxx"
+   REACT_APP_FIREBASE_MEASUREMENT_ID = "xxxxxxxxxxxxxx"
+   REACT_APP_MAPGL_TOKEN = "xxxxxxxxxxxxxx"
+   REACT_APP_GOOGLE_ANALYTICS_ID = "xxxxxxxxxxxxxx"
+   
+   ```
+
+
+<h3>Run</h3>
+
+Run it locally 
+
+```sh
+npm start
+```
+
+
+
+## Usage
+
+Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+
+## Contributing
+
+Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+
+
+## License
+
+Distributed under the MIT License. See `LICENSE` for more information.
+
+
+
+## Contact
+
+Taj Singh - tsingh@myges.fr
+
+Victor Deyanovitch - vdeyanovitch@myges.fr
+
+Elisa Gougerot - egougerot@myges.fr
+
+## Acknowledgements
+* [ReadMe Template](https://github.com/othneildrew/Best-README-Template/blob/master/README.md#contributing)
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+
+[android-shield]: https://img.shields.io/badge/Android-Store-brightgreen
+[android-url]: https://play.google.com/store/apps?hl=fr&gl=US
+[ios-shield]: https://img.shields.io/badge/iOS-Store-lightgrey
+[ios-url]: https://www.apple.com/fr/itunes/
+[contributors-shield]: https://img.shields.io/github/contributors/BookAppPA/MobileApp?color=%23ECECE5&logo=BookWorm&logoColor=%23000&style=socia
+[contributors-url]: https://github.com/BookAppPA/MobileApp/graphs/contributors
+[esgi-shield]: https://img.shields.io/badge/ESGI-PA-blue
+[esgi-url]: https://www.esgi.fr/
+[linkedin-shield-victor]: https://img.shields.io/badge/LinkedIn-Victor-blue
+[linkedin-url-victor]: https://www.linkedin.com/in/victor-d-a32055163/
+[linkedin-shield-elisa]: https://img.shields.io/badge/LinkedIn-Elisa-blue
+[linkedin-url-elisa]: https://www.linkedin.com/in/elisa-gougerot/
+[linkedin-shield-taj]: https://img.shields.io/badge/LinkedIn-Taj-blue
+[linkedin-url-taj]: https://www.linkedin.com/in/tajsingh1596
+[home-screenshot]: src/assets/screen1.png
+[comments-screenshot]: src/assets/screen2.png
+
